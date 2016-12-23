@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Hexo</title>
+  <title>Minimum Spanning Tree | Hexo</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in ">
+  <meta name="description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E t">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  <meta property="og:title" content="Minimum Spanning Tree"/>
   <meta property="og:site_name" content="Hexo"/>
 
   
@@ -51,32 +51,76 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2016-12-23T17:17:57.338Z"><a href="/2016/12/23/hello-world/">2016-12-23</a></time>
+        <time datetime="2016-12-23T17:14:48.000Z"><a href="/2016/12/23/Minimum-Spanning-Tree/">2016-12-23</a></time>
       
       
   
-    <h1 class="title">Hello World</h1>
+    <h1 class="title">Minimum Spanning Tree</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h1 id="Minimum-spanning-tree"><a href="#Minimum-spanning-tree" class="headerlink" title="Minimum spanning tree"></a>Minimum spanning tree</h1><h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition"></a>1. Definition</h2><p>For undirected graph G = (V, E) (connected) and a cost ce for each edge e:E<br>the MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.   </p>
+<ul>
+<li>T has no cycles   </li>
+<li>The subgraph T is connected   </li>
+</ul>
+<h2 id="2-Prim’s-MST-algorithm"><a href="#2-Prim’s-MST-algorithm" class="headerlink" title="2. Prim’s MST algorithm"></a>2. Prim’s MST algorithm</h2><h3 id="Principle"><a href="#Principle" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><p>X: The set of vertices already in the minimum spanning tree</p>
+<p>T: Current MST.</p>
+<p>V - X: vertices’s not explored yet.</p>
+<ul>
+<li>Choose any s in V, put s in X.</li>
+<li>while X != V:<ul>
+<li>for for every e(w,v): w in X, v in V - X, choose the least cost one e’</li>
+<li>put e’ in T, put v in X</li>
+</ul>
+</li>
+</ul>
+<h3 id="Heap-implementation"><a href="#Heap-implementation" class="headerlink" title="Heap implementation:"></a><strong>Heap implementation:</strong></h3><ul>
+<li>Use heap to represent set V - X.</li>
+<li>Set key to be the lowest cost connected with any vertex in V.</li>
+<li>When v extracted from top, upgrade keys of some elements:<ul>
+<li>for every edge e(v, w) if w in V - X: <ul>
+<li>delete w from heap;</li>
+<li>key(w) = min(key(w), cost(e(v, w))); </li>
+<li>add new w to the heap;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>time complexity: ~ m * log(n)    m: # edges, n: # vertices</li>
+</ul>
+<h2 id="3-Kruskal’s-MST-algorithm"><a href="#3-Kruskal’s-MST-algorithm" class="headerlink" title="3. Kruskal’s MST algorithm"></a>3. Kruskal’s MST algorithm</h2><h3 id="Principle-1"><a href="#Principle-1" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><ul>
+<li>T : the minimum spanning tree, initially an empty set </li>
+<li>Sort all of the edges based on cost, in the edge set E</li>
+<li>For each edge e in E with currently least cost, examine whether it cause a cycle in T (judging if there is a path from one to another by BFS/DFS)</li>
+<li>If not, put e and its end points in T, remove e in E</li>
+<li>Time complexity: ~m*n</li>
+</ul>
+<h3 id="Union-find-implementation"><a href="#Union-find-implementation" class="headerlink" title="Union-find implementation"></a><strong>Union-find implementation</strong></h3><ul>
+<li>Use a priority_queue to represent E</li>
+<li>Every time when an edge e popped from the pq, we examine that in the union-find data structure, whether the two end points of e are connected. (~log(n))</li>
+<li>If not, union two end point. (~log(n))</li>
+<li>Time complexity: ~m*log(n)</li>
+</ul>
 
       
     </div>
     <footer>
       
         
+  
+  <div class="categories">
+    <a href="/categories/algorithms/">algorithms</a>
+  </div>
+
         
+  
+  <div class="tags">
+    <a href="/tags/graph/">graph</a>
+  </div>
+
         
   <div class="addthis addthis_toolbox addthis_default_style">
     
@@ -117,7 +161,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="http://yoursite.com/2016/12/23/hello-world/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="http://yoursite.com/2016/12/23/Minimum-Spanning-Tree/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>
