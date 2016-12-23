@@ -1,0 +1,709 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="graph," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Spanning Tree">
+<meta property="og:url" content="http://yoursite.com/2016/12/23/Minimum-Spanning-Tree/index.html">
+<meta property="og:site_name" content="sunbydw">
+<meta property="og:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta property="og:updated_time" content="2016-12-23T17:15:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Minimum Spanning Tree">
+<meta name="twitter:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/23/Minimum-Spanning-Tree/"/>
+
+
+
+
+
+  <title> Minimum Spanning Tree | sunbydw </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">sunbydw</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/23/Minimum-Spanning-Tree/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Minimum Spanning Tree
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T12:14:48-05:00">
+                2016-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Minimum-spanning-tree"><a href="#Minimum-spanning-tree" class="headerlink" title="Minimum spanning tree"></a>Minimum spanning tree</h1><h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition"></a>1. Definition</h2><p>For undirected graph G = (V, E) (connected) and a cost ce for each edge e:E<br>the MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.   </p>
+<ul>
+<li>T has no cycles   </li>
+<li>The subgraph T is connected   </li>
+</ul>
+<h2 id="2-Prim’s-MST-algorithm"><a href="#2-Prim’s-MST-algorithm" class="headerlink" title="2. Prim’s MST algorithm"></a>2. Prim’s MST algorithm</h2><h3 id="Principle"><a href="#Principle" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><p>X: The set of vertices already in the minimum spanning tree</p>
+<p>T: Current MST.</p>
+<p>V - X: vertices’s not explored yet.</p>
+<ul>
+<li>Choose any s in V, put s in X.</li>
+<li>while X != V:<ul>
+<li>for for every e(w,v): w in X, v in V - X, choose the least cost one e’</li>
+<li>put e’ in T, put v in X</li>
+</ul>
+</li>
+</ul>
+<h3 id="Heap-implementation"><a href="#Heap-implementation" class="headerlink" title="Heap implementation:"></a><strong>Heap implementation:</strong></h3><ul>
+<li>Use heap to represent set V - X.</li>
+<li>Set key to be the lowest cost connected with any vertex in V.</li>
+<li>When v extracted from top, upgrade keys of some elements:<ul>
+<li>for every edge e(v, w) if w in V - X: <ul>
+<li>delete w from heap;</li>
+<li>key(w) = min(key(w), cost(e(v, w))); </li>
+<li>add new w to the heap;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>time complexity: ~ m * log(n)    m: # edges, n: # vertices</li>
+</ul>
+<h2 id="3-Kruskal’s-MST-algorithm"><a href="#3-Kruskal’s-MST-algorithm" class="headerlink" title="3. Kruskal’s MST algorithm"></a>3. Kruskal’s MST algorithm</h2><h3 id="Principle-1"><a href="#Principle-1" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><ul>
+<li>T : the minimum spanning tree, initially an empty set </li>
+<li>Sort all of the edges based on cost, in the edge set E</li>
+<li>For each edge e in E with currently least cost, examine whether it cause a cycle in T (judging if there is a path from one to another by BFS/DFS)</li>
+<li>If not, put e and its end points in T, remove e in E</li>
+<li>Time complexity: ~m*n</li>
+</ul>
+<h3 id="Union-find-implementation"><a href="#Union-find-implementation" class="headerlink" title="Union-find implementation"></a><strong>Union-find implementation</strong></h3><ul>
+<li>Use a priority_queue to represent E</li>
+<li>Every time when an edge e popped from the pq, we examine that in the union-find data structure, whether the two end points of e are connected. (~log(n))</li>
+<li>If not, union two end point. (~log(n))</li>
+<li>Time complexity: ~m*log(n)</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/graph/" rel="tag"># graph</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/23/SCC/" rel="next" title="SCC">
+                <i class="fa fa-chevron-left"></i> SCC
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/23/Dijkstra/" rel="prev" title="Dijkstra">
+                Dijkstra <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sunbydw" />
+          <p class="site-author-name" itemprop="name">sunbydw</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-spanning-tree"><span class="nav-number">1.</span> <span class="nav-text">Minimum spanning tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Definition"><span class="nav-number">1.1.</span> <span class="nav-text">1. Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Prim’s-MST-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">2. Prim’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap-implementation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Heap implementation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kruskal’s-MST-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kruskal’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-find-implementation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Union-find implementation</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunbydw</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
