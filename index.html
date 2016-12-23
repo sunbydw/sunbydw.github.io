@@ -50,7 +50,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2016-12-23T17:00:29.244Z"><a href="/2016/12/23/hello-world/">2016-12-23</a></time>
+        <time datetime="2016-12-23T17:12:30.916Z"><a href="/2016/12/23/hello-world/">2016-12-23</a></time>
       
       
   
@@ -85,6 +85,80 @@
 
 
 
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2016-12-23T17:09:15.000Z"><a href="/2016/12/23/SCC/">2016-12-23</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2016/12/23/SCC/">SCC.md</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h1 id="Computing-the-strongly-connected-components"><a href="#Computing-the-strongly-connected-components" class="headerlink" title="Computing the strongly connected components"></a>Computing the strongly connected components</h1><h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>A strongly connected component is a set of vertices and edges so that every pair of vertices in the set can get to each other through some edges in the set.</p>
+<p>Given directed graph G = (V, E), finding all of the strongly connected components. </p>
+<h2 id="Kosaraju’s-Two-Pass-Algorithm"><a href="#Kosaraju’s-Two-Pass-Algorithm" class="headerlink" title="Kosaraju’s Two-Pass Algorithm"></a>Kosaraju’s Two-Pass Algorithm</h2><p>Gr = (V, Er), where Er is the set of edges in which every edge are the reverse version of the corresponding edge in E.</p>
+<p>leader[] is an array that leader[i] is the leader of the strongly connected components which ith vertex belongs to.</p>
+<p>The algorithm:</p>
+<ul>
+<li>global variable s = NULL; stack<int> finish_order; </int></li>
+<li>for every vertex v:<ul>
+<li>if v was explored, continue;</li>
+<li>DFS(Gr, v)</li>
+</ul>
+</li>
+<li>while (!finish_order.isEmpty()) <ul>
+<li>v = finish_order.pop();</li>
+<li>if v was explored, continue;</li>
+<li>s = v;</li>
+<li>DFS(G, v)</li>
+</ul>
+</li>
+</ul>
+<p>DFS(G, v):</p>
+<ul>
+<li>mark v as explored;</li>
+<li>set leader[v] = s;</li>
+<li>for each edge e(v, w) of v:<ul>
+<li>if w was explored, continue;</li>
+<li>DFS(G, w)</li>
+</ul>
+</li>
+<li>finish_order.push(v);</li>
+</ul>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><ul>
+<li><p>The directed graph can be seen as a “meta-graph”, which means that we can see each strongly connected component as a single vertex. If there are several SCCs (# &gt; 1) and the original graph is connected, the “meta-graph” is acyclic.</p>
+</li>
+<li><p>The finishing order of a DFS-Loop: </p>
+<blockquote>
+<p>In every strongly connected component, there is at least one node finishing after all of the nodes in the component which is “after” the current component shown in the “meta-graph”</p>
+</blockquote>
+</li>
+<li><p>The above property guarantees that in the second DFS_Loop, we can always begin our traversal in the “front” SCC.</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -100,8 +174,26 @@
 </div>
 
   
+<div class="widget tag">
+  <h3 class="title">Kategorien</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/algorithms/">algorithms</a><small>1</small></li>
+  
+  </ul>
+</div>
+
 
   
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/graph/">graph</a><small>1</small></li>
+  
+  </ul>
+</div>
+
 </aside>
     <div class="clearfix"></div>
   </div>
