@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="graph," />
+  <meta name="keywords" content="Dynamic Programming," />
 
 
 
@@ -84,16 +84,52 @@
 
 
 
-<meta name="description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta name="description" content="Knapsack Problem##1. Setup
+
+Input: 
+n items. Each has attibutes:
+value $$v_i$$(nonnegative)
+size  $$w_i$$(nonnegative and integral)
+
+
+and the capacity W (a nonnegative integer)
+
+
+Output:
+A subset $$S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Minimum Spanning Tree">
-<meta property="og:url" content="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/index.html">
+<meta property="og:title" content="Knapsack Problem">
+<meta property="og:url" content="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
-<meta property="og:updated_time" content="2016-12-23T17:15:48.000Z">
+<meta property="og:description" content="Knapsack Problem##1. Setup
+
+Input: 
+n items. Each has attibutes:
+value $$v_i$$(nonnegative)
+size  $$w_i$$(nonnegative and integral)
+
+
+and the capacity W (a nonnegative integer)
+
+
+Output:
+A subset $$S">
+<meta property="og:updated_time" content="2016-12-25T03:02:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Minimum Spanning Tree">
-<meta name="twitter:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta name="twitter:title" content="Knapsack Problem">
+<meta name="twitter:description" content="Knapsack Problem##1. Setup
+
+Input: 
+n items. Each has attibutes:
+value $$v_i$$(nonnegative)
+size  $$w_i$$(nonnegative and integral)
+
+
+and the capacity W (a nonnegative integer)
+
+
+Output:
+A subset $$S">
 
 
 
@@ -121,13 +157,13 @@
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/"/>
 
 
 
 
 
-  <title> Minimum Spanning Tree | sunbydw </title>
+  <title> Knapsack Problem | sunbydw </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -250,7 +286,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="sunbydw">
@@ -274,7 +310,7 @@
             
             
               
-                Minimum Spanning Tree
+                Knapsack Problem
               
             
           </h1>
@@ -289,8 +325,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T12:14:48-05:00">
-                2016-12-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-24T21:10:29-05:00">
+                2016-12-24
               </time>
             
 
@@ -312,8 +348,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">algorithms</span>
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
                   </a>
                 </span>
 
@@ -347,48 +383,47 @@
       
 
       
-        <h1 id="Minimum-spanning-tree"><a href="#Minimum-spanning-tree" class="headerlink" title="Minimum spanning tree"></a>Minimum spanning tree</h1><h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition"></a>1. Definition</h2><p>For undirected graph G = (V, E) (connected) and a cost ce for each edge e:E<br>the MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.   </p>
+        <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><p>##1. Setup</p>
 <ul>
-<li>T has no cycles   </li>
-<li>The subgraph T is connected   </li>
+<li>Input: <ul>
+<li>n items. Each has attibutes:<ul>
+<li>value $$v_i$$(nonnegative)</li>
+<li>size  $$w_i$$(nonnegative and integral)</li>
 </ul>
-<h2 id="2-Prim’s-MST-algorithm"><a href="#2-Prim’s-MST-algorithm" class="headerlink" title="2. Prim’s MST algorithm"></a>2. Prim’s MST algorithm</h2><h3 id="Principle"><a href="#Principle" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><p>X: The set of vertices already in the minimum spanning tree</p>
-<p>T: Current MST.</p>
-<p>V - X: vertices’s not explored yet.</p>
+</li>
+<li>and the capacity W (a nonnegative integer)</li>
+</ul>
+</li>
+<li>Output:<ul>
+<li>A subset $$S \subset {1, 2,…, n}$$ that maximizes $$\sum_{i\in S} v<em>i $$ subject to $$\sum</em>{i\in S} w_i \leq W$$</li>
+</ul>
+</li>
+</ul>
+<p>##2. Analysis</p>
 <ul>
-<li>Choose any s in V, put s in X.</li>
-<li>while X != V:<ul>
-<li>for for every e(w,v): w in X, v in V - X, choose the least cost one e’</li>
-<li>put e’ in T, put v in X</li>
-</ul>
-</li>
-</ul>
-<h3 id="Heap-implementation"><a href="#Heap-implementation" class="headerlink" title="Heap implementation:"></a><strong>Heap implementation:</strong></h3><ul>
-<li>Use heap to represent set V - X.</li>
-<li>Set key to be the lowest cost connected with any vertex in V.</li>
-<li>When v extracted from top, upgrade keys of some elements:<ul>
-<li>for every edge e(v, w) if w in V - X: <ul>
-<li>delete w from heap;</li>
-<li>key(w) = min(key(w), cost(e(v, w))); </li>
-<li>add new w to the heap;</li>
+<li><p>Step 1: Formulate recurrence     (optimal solution as function of solutions to “smaller subproblems”) based on a structure of an optimal solution</p>
+<ul>
+<li>Let S = a max-value solution to an instance of knapsack<ul>
+<li>case 1: suppose item $$n\notin S$$ =&gt; $$S$$ must be optimal with the first $$n-1$$ items (If $$S^*$$ were better than $$S$$ with respect to 1st $$n − 1$$ items, then this equally true w.r.t. all $$n$$ items - contradiction)</li>
+<li>case 2: suppose item $$n\in S$$ =&gt; $$S - {n}$$ must be an optimal solution with respect to the 1st $$n-1$$ items and capacity $$W-w_n$$ (If $$S^∗$$ has higher value than $$S − {n}$$ &amp;&amp; $$total Size ≤ W − w_n$$ ,then $$S^∗∪ {n}$$ has $$size ≤ W$$ and value more than $$S$$ - contradiction)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>time complexity: ~ m * log(n)    m: # edges, n: # vertices</li>
+<li><p>Step 2: Identify the subproblems</p>
+<ul>
+<li>All possible prefixes of items $${1, 2, . . . , i}$$</li>
+<li>All possible (integral) residual capacities $$x ∈ {0, 1, 2, . . . , W }$$</li>
 </ul>
-<h2 id="3-Kruskal’s-MST-algorithm"><a href="#3-Kruskal’s-MST-algorithm" class="headerlink" title="3. Kruskal’s MST algorithm"></a>3. Kruskal’s MST algorithm</h2><h3 id="Principle-1"><a href="#Principle-1" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><ul>
-<li>T : the minimum spanning tree, initially an empty set </li>
-<li>Sort all of the edges based on cost, in the edge set E</li>
-<li>For each edge e in E with currently least cost, examine whether it cause a cycle in T (judging if there is a path from one to another by BFS/DFS)</li>
-<li>If not, put e and its end points in T, remove e in E</li>
-<li>Time complexity: ~m*n</li>
-</ul>
-<h3 id="Union-find-implementation"><a href="#Union-find-implementation" class="headerlink" title="Union-find implementation"></a><strong>Union-find implementation</strong></h3><ul>
-<li>Use a priority_queue to represent E</li>
-<li>Every time when an edge e popped from the pq, we examine that in the union-find data structure, whether the two end points of e are connected. (~log(n))</li>
-<li>If not, union two end point. (~log(n))</li>
-<li>Time complexity: ~m*log(n)</li>
+</li>
+<li><p>Step 3: Use recurrence from Step 1 to systematically solve all problems. </p>
+<p>​    <code>Let A = 2-D array</code></p>
+<p>​    <code>Initialize A[0,x] = 0 for x = 0, 1,...,W</code></p>
+<p>​    <code>For i = 1, 2, . . . , n</code></p>
+<p>​        <code>For x = 0, 1, . . . , W</code><br>​            <code>A[i, x] := max{ A[i − 1, x] , A[i − 1, x − w i ] + vi }</code></p>
+<p>​    <code>Return A[n, W ]</code></p>
+<p>​</p>
+</li>
 </ul>
 
       
@@ -413,7 +448,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/graph/" rel="tag"># graph</a>
+            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
           
         </div>
       
@@ -422,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/23/SCC/" rel="next" title="SCC">
-                <i class="fa fa-chevron-left"></i> SCC
+              <a href="/2016/12/23/Dijkstra/" rel="next" title="Dijkstra">
+                <i class="fa fa-chevron-left"></i> Dijkstra
               </a>
             
           </div>
@@ -431,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/23/Dijkstra/" rel="prev" title="Dijkstra">
-                Dijkstra <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -557,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-spanning-tree"><span class="nav-number">1.</span> <span class="nav-text">Minimum spanning tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Definition"><span class="nav-number">1.1.</span> <span class="nav-text">1. Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Prim’s-MST-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">2. Prim’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap-implementation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Heap implementation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kruskal’s-MST-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kruskal’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-find-implementation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Union-find implementation</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Knapsack-Problem"><span class="nav-number">1.</span> <span class="nav-text">Knapsack Problem</span></a></li></ol></div>
             
 
           </div>
