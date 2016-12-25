@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
-<meta property="og:updated_time" content="2016-12-25T04:22:28.883Z">
+<meta property="og:updated_time" content="2016-12-25T20:57:58.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Minimum Spanning Tree">
 <meta name="twitter:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
@@ -390,6 +390,10 @@
 <li>If not, union two end point. (~log(n))</li>
 <li>Time complexity: ~m*log(n)</li>
 </ul>
+<h2 id="4-Notes"><a href="#4-Notes" class="headerlink" title="4. Notes"></a>4. Notes</h2><ul>
+<li>If all edge costs are distinct, it turns out that MST is unique.</li>
+<li>Cut Property: e is an edge of G. Suppose there is a cut (A, B) such that e is the cheapest edge of G that cross it. Then e belongs to the MST of G.</li>
+</ul>
 
       
     </div>
@@ -557,7 +561,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-spanning-tree"><span class="nav-number">1.</span> <span class="nav-text">Minimum spanning tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Definition"><span class="nav-number">1.1.</span> <span class="nav-text">1. Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Prim’s-MST-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">2. Prim’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap-implementation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Heap implementation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kruskal’s-MST-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kruskal’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-find-implementation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Union-find implementation</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-spanning-tree"><span class="nav-number">1.</span> <span class="nav-text">Minimum spanning tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Definition"><span class="nav-number">1.1.</span> <span class="nav-text">1. Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Prim’s-MST-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">2. Prim’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap-implementation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Heap implementation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kruskal’s-MST-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kruskal’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-find-implementation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Union-find implementation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Notes"><span class="nav-number">1.4.</span> <span class="nav-text">4. Notes</span></a></li></ol></li></ol></div>
             
 
           </div>
