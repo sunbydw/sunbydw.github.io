@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -84,52 +84,49 @@
 
 
 
-<meta name="description" content="Knapsack Problem##1. Setup
-
+<meta name="description" content="Knapsack Problem1. Setup
 Input: 
 n items. Each has attibutes:
-value $$v_i$$(nonnegative)
-size  $$w_i$$(nonnegative and integral)
+value $v_i$(nonnegative)
+size  $w_i$(nonnegative and integral)
 
 
 and the capacity W (a nonnegative integer)
 
 
 Output:
-A subset $$S">
+A subset $S \subset">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Knapsack Problem">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Knapsack Problem##1. Setup
-
+<meta property="og:description" content="Knapsack Problem1. Setup
 Input: 
 n items. Each has attibutes:
-value $$v_i$$(nonnegative)
-size  $$w_i$$(nonnegative and integral)
+value $v_i$(nonnegative)
+size  $w_i$(nonnegative and integral)
 
 
 and the capacity W (a nonnegative integer)
 
 
 Output:
-A subset $$S">
-<meta property="og:updated_time" content="2016-12-25T03:02:14.000Z">
+A subset $S \subset">
+<meta property="og:updated_time" content="2016-12-25T04:20:39.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Knapsack Problem">
-<meta name="twitter:description" content="Knapsack Problem##1. Setup
-
+<meta name="twitter:description" content="Knapsack Problem1. Setup
 Input: 
 n items. Each has attibutes:
-value $$v_i$$(nonnegative)
-size  $$w_i$$(nonnegative and integral)
+value $v_i$(nonnegative)
+size  $w_i$(nonnegative and integral)
 
 
 and the capacity W (a nonnegative integer)
 
 
 Output:
-A subset $$S">
+A subset $S \subset">
 
 
 
@@ -163,7 +160,7 @@ A subset $$S">
 
 
 
-  <title> Knapsack Problem | sunbydw </title>
+  <title> Knapsack Problem | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -184,7 +181,7 @@ A subset $$S">
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -383,45 +380,38 @@ A subset $$S">
       
 
       
-        <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><p>##1. Setup</p>
-<ul>
+        <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
 <li>Input: <ul>
 <li>n items. Each has attibutes:<ul>
-<li>value $$v_i$$(nonnegative)</li>
-<li>size  $$w_i$$(nonnegative and integral)</li>
+<li>value $v_i$(nonnegative)</li>
+<li>size  $w_i$(nonnegative and integral)</li>
 </ul>
 </li>
 <li>and the capacity W (a nonnegative integer)</li>
 </ul>
 </li>
 <li>Output:<ul>
-<li>A subset $$S \subset {1, 2,…, n}$$ that maximizes $$\sum_{i\in S} v<em>i $$ subject to $$\sum</em>{i\in S} w_i \leq W$$</li>
+<li>A subset $S \subset {1, 2,…, n}$ that maximizes $\sum_{i\in S} v_i $ subject to $\sum_{i\in S} w_i \leq W$</li>
 </ul>
 </li>
 </ul>
-<p>##2. Analysis</p>
-<ul>
-<li><p>Step 1: Formulate recurrence     (optimal solution as function of solutions to “smaller subproblems”) based on a structure of an optimal solution</p>
-<ul>
-<li>Let S = a max-value solution to an instance of knapsack<ul>
-<li>case 1: suppose item $$n\notin S$$ =&gt; $$S$$ must be optimal with the first $$n-1$$ items (If $$S^*$$ were better than $$S$$ with respect to 1st $$n − 1$$ items, then this equally true w.r.t. all $$n$$ items - contradiction)</li>
-<li>case 2: suppose item $$n\in S$$ =&gt; $$S - {n}$$ must be an optimal solution with respect to the 1st $$n-1$$ items and capacity $$W-w_n$$ (If $$S^∗$$ has higher value than $$S − {n}$$ &amp;&amp; $$total Size ≤ W − w_n$$ ,then $$S^∗∪ {n}$$ has $$size ≤ W$$ and value more than $$S$$ - contradiction)</li>
+<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
+<li>Step 1: Formulate recurrence     (optimal solution as function of solutions to “smaller subproblems”) based on a structure of an optimal solution<ul>
+<li>Let $S$ = a max-value solution to an instance of knapsack<ul>
+<li>case 1: suppose item $n\notin S$ =&gt; $S$ must be optimal with the first $n-1$ items (If $S^*$ were better than $S$ with respect to 1st $n − 1$ items, then this equally true w.r.t. all $n$ items - contradiction)</li>
+<li>case 2: suppose item $n\in S$ =&gt; $S - {n}$ must be an optimal solution with respect to the 1st $n-1$ items and capacity $W-w_n$ (If $S^∗$ has higher value than $S − {n}$ &amp;&amp; $total Size ≤ W − w_n$ ,then $S^∗∪ {n}$ has $size ≤ W$ and value more than $S$ - contradiction)</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>Step 2: Identify the subproblems</p>
-<ul>
-<li>All possible prefixes of items $${1, 2, . . . , i}$$</li>
-<li>All possible (integral) residual capacities $$x ∈ {0, 1, 2, . . . , W }$$</li>
+<li>Step 2: Identify the subproblems<ul>
+<li>All possible prefixes of items ${1, 2, . . . , i}$</li>
+<li>All possible (integral) residual capacities $x ∈ {0, 1, 2, . . . , W }$</li>
 </ul>
 </li>
 <li><p>Step 3: Use recurrence from Step 1 to systematically solve all problems. </p>
-<p>​    <code>Let A = 2-D array</code></p>
-<p>​    <code>Initialize A[0,x] = 0 for x = 0, 1,...,W</code></p>
-<p>​    <code>For i = 1, 2, . . . , n</code></p>
-<p>​        <code>For x = 0, 1, . . . , W</code><br>​            <code>A[i, x] := max{ A[i − 1, x] , A[i − 1, x − w i ] + vi }</code></p>
-<p>​    <code>Return A[n, W ]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Let A = 2-D array </div><div class="line">Initialize A[0,x] = 0 for x = 0, 1,...,W 	</div><div class="line">For i = 1, 2, . . . , n </div><div class="line">    For x = 0, 1, . . . , W		</div><div class="line">        A[i, x] := max&#123; A[i − 1, x] , A[i − 1, x − w i ] + vi &#125;</div><div class="line">Return A[n, W ]</div></pre></td></tr></table></figure>
+<p>​</p>
 <p>​</p>
 </li>
 </ul>
@@ -588,7 +578,7 @@ A subset $$S">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Knapsack-Problem"><span class="nav-number">1.</span> <span class="nav-text">Knapsack Problem</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Knapsack-Problem"><span class="nav-number">1.</span> <span class="nav-text">Knapsack Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Setup"><span class="nav-number">1.1.</span> <span class="nav-text">1. Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Analysis"><span class="nav-number">1.2.</span> <span class="nav-text">2. Analysis</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -700,7 +690,24 @@ A subset $$S">
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 
