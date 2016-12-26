@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Graph," />
+  <meta name="keywords" content="Dynamic Programming," />
 
 
 
@@ -84,16 +84,22 @@
 
 
 
-<meta name="description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta name="description" content="1. Setup:
+Input:Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}
+Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presumably $α_{ab} = 0$ of">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Minimum Spanning Tree">
-<meta property="og:url" content="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/index.html">
+<meta property="og:title" content="Sequence Alignment Problem">
+<meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
-<meta property="og:updated_time" content="2016-12-25T20:57:58.491Z">
+<meta property="og:description" content="1. Setup:
+Input:Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}
+Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presumably $α_{ab} = 0$ of">
+<meta property="og:updated_time" content="2016-12-26T21:52:15.781Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Minimum Spanning Tree">
-<meta name="twitter:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta name="twitter:title" content="Sequence Alignment Problem">
+<meta name="twitter:description" content="1. Setup:
+Input:Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}
+Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presumably $α_{ab} = 0$ of">
 
 
 
@@ -121,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/"/>
 
 
 
 
 
-  <title> Minimum Spanning Tree | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Sequence Alignment Problem | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -250,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="sunbydw">
@@ -274,7 +280,7 @@
             
             
               
-                Minimum Spanning Tree
+                Sequence Alignment Problem
               
             
           </h1>
@@ -289,8 +295,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T12:14:48-05:00">
-                2016-12-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T13:35:14-05:00">
+                2016-12-26
               </time>
             
 
@@ -347,53 +353,41 @@
       
 
       
-        <h1 id="Minimum-spanning-tree"><a href="#Minimum-spanning-tree" class="headerlink" title="Minimum spanning tree"></a>Minimum spanning tree</h1><h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition"></a>1. Definition</h2><p>For undirected graph G = (V, E) (connected) and a cost ce for each edge e:E<br>the MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.   </p>
+        <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><ul>
+<li><p>Input:<br>Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}</p>
+<p>Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]</p>
+</li>
+<li><p>Feasible solutions:<br>Alignments - i.e., insert gaps to equalize lengths of the string</p>
+</li>
+<li>Goal:<br> Alignment with minimum possible total penalty</li>
+</ul>
+<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
+<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:</p>
 <ul>
-<li>T has no cycles   </li>
-<li>The subgraph T is connected   </li>
+<li>case 1: $x_m$ &amp; $y_n$</li>
+<li>case 2: $x_m$ &amp; $gap$</li>
+<li>case 3: $y_n$ &amp; $gap$</li>
 </ul>
-<h2 id="2-Prim’s-MST-algorithm"><a href="#2-Prim’s-MST-algorithm" class="headerlink" title="2. Prim’s MST algorithm"></a>2. Prim’s MST algorithm</h2><h3 id="Principle"><a href="#Principle" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><p>X: The set of vertices already in the minimum spanning tree</p>
-<p>T: Current MST.</p>
-<p>V - X: vertices’s not explored yet.</p>
+<p>​    If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>​    If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>​    If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
+</li>
+<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:</p>
 <ul>
-<li>Choose any s in V, put s in X.</li>
-<li>while X != V:<ul>
-<li>for for every e(w,v): w in X, v in V - X, choose the least cost one e’</li>
-<li>put e’ in T, put v in X</li>
+<li>$X_i$ = 1st i letters of X</li>
+<li>$Y_j$ = 1st j letters of Y</li>
 </ul>
+<p>(Only peel off letters from the right end of the strings.)</p>
+</li>
+<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m​$ and $j = 1, . . . , n​$:</p>
+<p>​ $$P_{ij} = min((\alpha_x_iy_j+P_{i-1,j-1}), (\alpha_{gap}+P_{i,j-1}), (\alpha_{gap}+P_{i-1,j}))$$</p>
+<p>Base case:<br>$$P_{i,0} = P_{0,i} = i * \alpha_{gap}$$</p>
 </li>
 </ul>
-<h3 id="Heap-implementation"><a href="#Heap-implementation" class="headerlink" title="Heap implementation:"></a><strong>Heap implementation:</strong></h3><ul>
-<li>Use heap to represent set V - X.</li>
-<li>Set key to be the lowest cost connected with any vertex in V.</li>
-<li>When v extracted from top, upgrade keys of some elements:<ul>
-<li>for every edge e(v, w) if w in V - X: <ul>
-<li>delete w from heap;</li>
-<li>key(w) = min(key(w), cost(e(v, w))); </li>
-<li>add new w to the heap;</li>
+<h2 id="3-The-Algorithm"><a href="#3-The-Algorithm" class="headerlink" title="3. The Algorithm"></a>3. The Algorithm</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A[][] is a <span class="number">2</span>-D <span class="built_in">array</span></div><div class="line">A[i][<span class="number">0</span>] = A[<span class="number">0</span>][i] = i * a_gap</div><div class="line"><span class="keyword">for</span> i = <span class="number">1</span>:m</div><div class="line">    <span class="keyword">for</span> j = <span class="number">1</span>:n</div><div class="line">        A[i][j] = min(A[i<span class="number">-1</span>][j<span class="number">-1</span>]+a_xiyj, A[i<span class="number">-1</span>][j]+a_gap, A[i][j<span class="number">-1</span>]+a_gap);</div></pre></td></tr></table></figure>
+<ul>
+<li>Running time: $O(mn)$</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>time complexity: ~ m * log(n)    m: # edges, n: # vertices</li>
-</ul>
-<h2 id="3-Kruskal’s-MST-algorithm"><a href="#3-Kruskal’s-MST-algorithm" class="headerlink" title="3. Kruskal’s MST algorithm"></a>3. Kruskal’s MST algorithm</h2><h3 id="Principle-1"><a href="#Principle-1" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><ul>
-<li>T : the minimum spanning tree, initially an empty set </li>
-<li>Sort all of the edges based on cost, in the edge set E</li>
-<li>For each edge e in E with currently least cost, examine whether it cause a cycle in T (judging if there is a path from one to another by BFS/DFS)</li>
-<li>If not, put e and its end points in T, remove e in E</li>
-<li>Time complexity: ~m*n</li>
-</ul>
-<h3 id="Union-find-implementation"><a href="#Union-find-implementation" class="headerlink" title="Union-find implementation"></a><strong>Union-find implementation</strong></h3><ul>
-<li>Use a priority_queue to represent E</li>
-<li>Every time when an edge e popped from the pq, we examine that in the union-find data structure, whether the two end points of e are connected. (~log(n))</li>
-<li>If not, union two end point. (~log(n))</li>
-<li>Time complexity: ~m*log(n)</li>
-</ul>
-<h2 id="4-Notes"><a href="#4-Notes" class="headerlink" title="4. Notes"></a>4. Notes</h2><ul>
-<li>If all edge costs are distinct, it turns out that MST is unique.</li>
-<li>Cut Property: e is an edge of G. Suppose there is a cut (A, B) such that e is the cheapest edge of G that cross it. Then e belongs to the MST of G.</li>
-</ul>
+<h2 id="4-Reconstructing-a-Solution"><a href="#4-Reconstructing-a-Solution" class="headerlink" title="4. Reconstructing a Solution"></a>4. Reconstructing a Solution</h2><p>Trace back from A[m][n]. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (m &gt; <span class="number">0</span> &amp;&amp; n &gt; <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">switch</span> matching_case &#123;</div><div class="line">      <span class="keyword">case</span> <span class="number">1</span>: match x_i, y_j, i--, j--</div><div class="line">      <span class="keyword">case</span> <span class="number">2</span>: match x_i, gap, i--</div><div class="line">      <span class="keyword">case</span> <span class="number">3</span>: match gap, y_j, j--</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">while</span> (n==<span class="number">0</span>) &#123;match remaining substring X <span class="keyword">using</span> gaps of Y&#125;</div><div class="line"><span class="keyword">while</span> (m==<span class="number">0</span>) &#123;match remaining substring Y <span class="keyword">using</span> gaps of X&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -417,7 +411,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Graph/" rel="tag"># Graph</a>
+            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
           
         </div>
       
@@ -426,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/23/SCC/" rel="next" title="SCC">
-                <i class="fa fa-chevron-left"></i> SCC
+              <a href="/2016/12/26/Principles-of-Dynamic-Programming/" rel="next" title="Principles of Dynamic Programming">
+                <i class="fa fa-chevron-left"></i> Principles of Dynamic Programming
               </a>
             
           </div>
@@ -435,10 +429,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/23/Dijkstra/" rel="prev" title="Dijkstra">
-                Dijkstra <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -561,7 +551,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-spanning-tree"><span class="nav-number">1.</span> <span class="nav-text">Minimum spanning tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Definition"><span class="nav-number">1.1.</span> <span class="nav-text">1. Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Prim’s-MST-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">2. Prim’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap-implementation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Heap implementation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kruskal’s-MST-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kruskal’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-find-implementation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Union-find implementation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Notes"><span class="nav-number">1.4.</span> <span class="nav-text">4. Notes</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Setup"><span class="nav-number">1.</span> <span class="nav-text">1. Setup:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Analysis"><span class="nav-number">2.</span> <span class="nav-text">2. Analysis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-The-Algorithm"><span class="nav-number">3.</span> <span class="nav-text">3. The Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Reconstructing-a-Solution"><span class="nav-number">4.</span> <span class="nav-text">4. Reconstructing a Solution</span></a></li></ol></div>
             
 
           </div>

@@ -248,6 +248,330 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/Sequence-Alignment/" itemprop="url">
+                  Sequence Alignment Problem
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T13:35:14-05:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><ul>
+<li><p>Input:<br>Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}</p>
+<p>Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]</p>
+</li>
+<li><p>Feasible solutions:<br>Alignments - i.e., insert gaps to equalize lengths of the string</p>
+</li>
+<li>Goal:<br> Alignment with minimum possible total penalty</li>
+</ul>
+<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
+<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:</p>
+<ul>
+<li>case 1: $x_m$ &amp; $y_n$</li>
+<li>case 2: $x_m$ &amp; $gap$</li>
+<li>case 3: $y_n$ &amp; $gap$</li>
+</ul>
+<p>​    If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>​    If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>​    If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
+</li>
+<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:</p>
+<ul>
+<li>$X_i$ = 1st i letters of X</li>
+<li>$Y_j$ = 1st j letters of Y</li>
+</ul>
+<p>(Only peel off letters from the right end of the strings.)</p>
+</li>
+<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m​$ and $j = 1, . . . , n​$:</p>
+<p>​ $$P_{ij} = min((\alpha_x_iy_j+P_{i-1,j-1}), (\alpha_{gap}+P_{i,j-1}), (\alpha_{gap}+P_{i-1,j}))$$</p>
+<p>Base case:<br>$$P_{i,0} = P_{0,i} = i * \alpha_{gap}$$</p>
+</li>
+</ul>
+<h2 id="3-The-Algorithm"><a href="#3-The-Algorithm" class="headerlink" title="3. The Algorithm"></a>3. The Algorithm</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A[][] is a <span class="number">2</span>-D <span class="built_in">array</span></div><div class="line">A[i][<span class="number">0</span>] = A[<span class="number">0</span>][i] = i * a_gap</div><div class="line"><span class="keyword">for</span> i = <span class="number">1</span>:m</div><div class="line">    <span class="keyword">for</span> j = <span class="number">1</span>:n</div><div class="line">        A[i][j] = min(A[i<span class="number">-1</span>][j<span class="number">-1</span>]+a_xiyj, A[i<span class="number">-1</span>][j]+a_gap, A[i][j<span class="number">-1</span>]+a_gap);</div></pre></td></tr></table></figure>
+<ul>
+<li>Running time: $O(mn)$</li>
+</ul>
+<h2 id="4-Reconstructing-a-Solution"><a href="#4-Reconstructing-a-Solution" class="headerlink" title="4. Reconstructing a Solution"></a>4. Reconstructing a Solution</h2><p>Trace back from A[m][n]. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (m &gt; <span class="number">0</span> &amp;&amp; n &gt; <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">switch</span> matching_case &#123;</div><div class="line">      <span class="keyword">case</span> <span class="number">1</span>: match x_i, y_j, i--, j--</div><div class="line">      <span class="keyword">case</span> <span class="number">2</span>: match x_i, gap, i--</div><div class="line">      <span class="keyword">case</span> <span class="number">3</span>: match gap, y_j, j--</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">while</span> (n==<span class="number">0</span>) &#123;match remaining substring X <span class="keyword">using</span> gaps of Y&#125;</div><div class="line"><span class="keyword">while</span> (m==<span class="number">0</span>) &#123;match remaining substring Y <span class="keyword">using</span> gaps of X&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/Principles-of-Dynamic-Programming/" itemprop="url">
+                  Principles of Dynamic Programming
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T13:27:46-05:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Principles-of-Dynamic-Programming"><a href="#Principles-of-Dynamic-Programming" class="headerlink" title="Principles of Dynamic Programming:"></a>Principles of Dynamic Programming:</h2><ol>
+<li>Identify a small number of subproblems.</li>
+<li>Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.</li>
+<li>After solving all subproblems, can quickly compute the final solution.</li>
+</ol>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h2><ol>
+<li>Subproblems are always some prefix or suffix of the problem.</li>
+<li>A form of memorization can not only avoid redundantly calculate the solutions of subproblems, but also help reconstruct specific answer sometimes (not just some kind of value).</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/max-weight-independent-set/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -274,7 +598,7 @@
               
                 
                 <a class="post-title-link" href="/2016/12/26/max-weight-independent-set/" itemprop="url">
-                  max-weight-independent-set
+                  Max-Weight Independent Set
                 </a>
               
             
@@ -350,14 +674,14 @@
       
         
           
-            <h1 id="Max-Weight-Independent-Set-Problem"><a href="#Max-Weight-Independent-Set-Problem" class="headerlink" title="Max-Weight Independent Set Problem"></a>Max-Weight Independent Set Problem</h1><h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
+            <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
 <li>Input: a path graph G = (V, E) with nonnegative weights on vertices.</li>
 <li>Output: Subset of nonadjacent vertices – an independent set – of maximum total weight.</li>
 </ul>
 <h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><h3 id="Step-1-Formulate-Recurrence"><a href="#Step-1-Formulate-Recurrence" class="headerlink" title="Step 1: Formulate Recurrence"></a>Step 1: Formulate Recurrence</h3><ul>
 <li><p>Reasoning about structure of an optimal solution (narrows down the set of candidates for the optimal solution)<br>Let $S \subset V$ be a max-weight independent set (IS). Let $v_n$ = last vertex of path</p>
 <ul>
-<li>case 1: $v_n\notin S$. Let G’ = G with $v_n$ deleted. S is not also an IS of G’, but a max-weight IS. (contradiction)</li>
+<li>case 1: $v_n\notin S$. Let G’ = G with $v_n$ deleted. S is not only an IS of G’, but also a max-weight IS. (contradiction)</li>
 <li>case 2: $v_n\in S$. According to the definition of IS: $v_n-1\notin S$. Let G’’ = G with $v_n-1$ deleted. Now $S-{v_n}$ is an max-weight IS of G’’. (contradiction)</li>
 </ul>
 </li>
@@ -1164,7 +1488,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
