@@ -248,6 +248,161 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Optimal-BSTs/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/Optimal-BSTs/" itemprop="url">
+                  Optimal BSTs
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T17:23:27-05:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a><strong>Setup:</strong></h2><p><strong>Input:</strong> Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n</p>
+<p><strong>Goal:</strong> Compute a valid search tree that minimizes the weighted (average) search time.</p>
+<p>$$C(T) = \sum_{items} p_i * (depth(i)+1)$$</p>
+<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis:"></a><strong>Analysis:</strong></h2><h3 id="Optimal-Substructure"><a href="#Optimal-Substructure" class="headerlink" title="Optimal Substructure"></a><strong>Optimal Substructure</strong></h3><p>Suppose an optimal BST for keys {1, 2, . . . , n} has root r , left subtree $T_1$ , right subtree $T_2$. Then $T_1$ is optimal for the keys {1, 2, . . . , r − 1} and $T_2$ for the keys {r + 1, r + 2, . . . , n} (contradiction) </p>
+<p>At this time, we have:</p>
+<p>$$C(T) = \sum_{items} p_i + C(T_1) + C(T_2)$$</p>
+<h3 id="Relevant-Subproblems"><a href="#Relevant-Subproblems" class="headerlink" title="Relevant Subproblems"></a><strong>Relevant Subproblems</strong></h3><p>Contiguous intervals (S = {i, i + 1, . . . , j − 1, j} for every i ≤ j)  Note: Since we sometimes have to calculate the suffix of a prefix(this is not neither a prefix or suffix, but an contiguous interval)</p>
+<h3 id="The-Recurrence"><a href="#The-Recurrence" class="headerlink" title="The Recurrence:"></a><strong>The Recurrence:</strong></h3><p><strong>Notation:</strong> For 1 ≤ i ≤ j ≤ n, let $C_ij$ = weighted search cost of an optimal BST for the items { i, i + 1, . . . , j−1, j } [with probabilities $[ p_i , p_{i+1} , . . . , p_j ]$</p>
+<p><strong>Recurrence:</strong> For every 1 ≤ i ≤ j ≤ n: $$C_{ij}=min_{r=1,…,j}{\sum^j_{k=i}p_k + C_{i,r-1}+C_{r+1,j}}$$</p>
+<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm:"></a>Algorithm:</h2><p><strong>Important:</strong> Solve smallest subproblems first</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Let A = <span class="number">2</span>D <span class="built_in">array</span></div><div class="line"><span class="keyword">for</span> s = <span class="number">0</span>:n<span class="number">-1</span></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>:n</div><div class="line">        A[i][i+s] = min_r(sum(p(i:i+s) + A[i][r<span class="number">-1</span>] + A[r+<span class="number">1</span>][i+s])</div><div class="line"><span class="keyword">return</span> A[<span class="number">1</span>][n]</div></pre></td></tr></table></figure>
+<p><strong>Complexity Analysis:</strong> </p>
+<p>$-\Theta(n^2)$ Subproblems</p>
+<p>$-\Theta(j-i)$ time to compute A[i][j]</p>
+<p>$-\Theta(n^3)​$ time overall</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -350,32 +505,17 @@
       
         
           
-            <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><ul>
-<li><p>Input:<br>Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}</p>
-<p>Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]</p>
-</li>
-<li><p>Feasible solutions:<br>Alignments - i.e., insert gaps to equalize lengths of the string</p>
-</li>
-<li>Goal:<br> Alignment with minimum possible total penalty</li>
-</ul>
+            <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><p>​    <strong>Input:</strong><br>​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.<br>​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]<br>​    <strong>Feasible solutions:</strong><br>​       Alignments - i.e., insert gaps to equalize lengths of the string<br>​    <strong>Goal:</strong><br>​       Alignment with minimum possible total penalty</p>
 <h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
-<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:</p>
-<ul>
-<li>case 1: $x_m$ &amp; $y_n$</li>
-<li>case 2: $x_m$ &amp; $gap$</li>
-<li>case 3: $y_n$ &amp; $gap$</li>
-</ul>
-<p>​    If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>​    If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>​    If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
+<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:<br>$$case 1: x_m \&amp; y_n $$</p>
+<p>$$ case 2: x_m \&amp; gap$$</p>
+<p>$$ case 3: y_n  \&amp; gap$$<br>If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
 </li>
-<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:</p>
-<ul>
-<li>$X_i$ = 1st i letters of X</li>
-<li>$Y_j$ = 1st j letters of Y</li>
-</ul>
-<p>(Only peel off letters from the right end of the strings.)</p>
+<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:<br> $X_i$ = 1st i letters of X<br> $Y_j$ = 1st j letters of Y<br>(Only peel off letters from the right end of the strings.)</p>
 </li>
-<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m​$ and $j = 1, . . . , n​$:</p>
-<p>​ $$P_{ij} = min((\alpha_x_iy_j+P_{i-1,j-1}), (\alpha_{gap}+P_{i,j-1}), (\alpha_{gap}+P_{i-1,j}))$$</p>
+<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m$ and $j = 1, . . . , n$:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P_ij = min(a[xi][yi]+P[i<span class="number">-1</span>][j<span class="number">-1</span>], a_gap+P[i][j<span class="number">-1</span>], a_gap+P[i<span class="number">-1</span>][j])</div></pre></td></tr></table></figure>
+<p>​</p>
 <p>Base case:<br>$$P_{i,0} = P_{0,i} = i * \alpha_{gap}$$</p>
 </li>
 </ul>
@@ -1488,7 +1628,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1633,24 +1773,7 @@
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -1678,6 +1801,45 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
 
   
 

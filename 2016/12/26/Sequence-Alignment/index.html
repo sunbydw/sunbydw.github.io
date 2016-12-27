@@ -84,22 +84,16 @@
 
 
 
-<meta name="description" content="1. Setup:
-Input:Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}
-Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presumably $α_{ab} = 0$ of">
+<meta name="description" content="1. Setup:​    Input:​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presuma">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sequence Alignment Problem">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="1. Setup:
-Input:Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}
-Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presumably $α_{ab} = 0$ of">
-<meta property="og:updated_time" content="2016-12-26T21:52:15.781Z">
+<meta property="og:description" content="1. Setup:​    Input:​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presuma">
+<meta property="og:updated_time" content="2016-12-26T22:18:58.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sequence Alignment Problem">
-<meta name="twitter:description" content="1. Setup:
-Input:Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}
-Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presumably $α_{ab} = 0$ of">
+<meta name="twitter:description" content="1. Setup:​    Input:​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presuma">
 
 
 
@@ -353,32 +347,17 @@ Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [pr
       
 
       
-        <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><ul>
-<li><p>Input:<br>Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}</p>
-<p>Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]</p>
-</li>
-<li><p>Feasible solutions:<br>Alignments - i.e., insert gaps to equalize lengths of the string</p>
-</li>
-<li>Goal:<br> Alignment with minimum possible total penalty</li>
-</ul>
+        <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><p>​    <strong>Input:</strong><br>​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.<br>​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]<br>​    <strong>Feasible solutions:</strong><br>​       Alignments - i.e., insert gaps to equalize lengths of the string<br>​    <strong>Goal:</strong><br>​       Alignment with minimum possible total penalty</p>
 <h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
-<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:</p>
-<ul>
-<li>case 1: $x_m$ &amp; $y_n$</li>
-<li>case 2: $x_m$ &amp; $gap$</li>
-<li>case 3: $y_n$ &amp; $gap$</li>
-</ul>
-<p>​    If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>​    If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>​    If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
+<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:<br>$$case 1: x_m \&amp; y_n $$</p>
+<p>$$ case 2: x_m \&amp; gap$$</p>
+<p>$$ case 3: y_n  \&amp; gap$$<br>If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
 </li>
-<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:</p>
-<ul>
-<li>$X_i$ = 1st i letters of X</li>
-<li>$Y_j$ = 1st j letters of Y</li>
-</ul>
-<p>(Only peel off letters from the right end of the strings.)</p>
+<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:<br> $X_i$ = 1st i letters of X<br> $Y_j$ = 1st j letters of Y<br>(Only peel off letters from the right end of the strings.)</p>
 </li>
-<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m​$ and $j = 1, . . . , n​$:</p>
-<p>​ $$P_{ij} = min((\alpha_x_iy_j+P_{i-1,j-1}), (\alpha_{gap}+P_{i,j-1}), (\alpha_{gap}+P_{i-1,j}))$$</p>
+<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m$ and $j = 1, . . . , n$:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P_ij = min(a[xi][yi]+P[i<span class="number">-1</span>][j<span class="number">-1</span>], a_gap+P[i][j<span class="number">-1</span>], a_gap+P[i<span class="number">-1</span>][j])</div></pre></td></tr></table></figure>
+<p>​</p>
 <p>Base case:<br>$$P_{i,0} = P_{0,i} = i * \alpha_{gap}$$</p>
 </li>
 </ul>
@@ -429,6 +408,10 @@ Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [pr
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/26/Optimal-BSTs/" rel="prev" title="Optimal BSTs">
+                Optimal BSTs <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -498,7 +481,7 @@ Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [pr
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -663,24 +646,7 @@ Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [pr
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -708,6 +674,45 @@ Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [pr
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
 
   
 

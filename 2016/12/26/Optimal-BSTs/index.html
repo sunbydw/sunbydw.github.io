@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Graph," />
+  <meta name="keywords" content="Dynamic Programming," />
 
 
 
@@ -84,16 +84,25 @@
 
 
 
-<meta name="description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta name="description" content="Setup:Input: Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n
+Goal: Compute a valid search tree that minimizes the weighted (average) search time.
+$$C(T) = \sum_{items} p_i * (depth(i)+1)$$
+Analysis:Op">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Minimum Spanning Tree">
-<meta property="og:url" content="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/index.html">
+<meta property="og:title" content="Optimal BSTs">
+<meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Optimal-BSTs/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
-<meta property="og:updated_time" content="2016-12-25T20:57:58.491Z">
+<meta property="og:description" content="Setup:Input: Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n
+Goal: Compute a valid search tree that minimizes the weighted (average) search time.
+$$C(T) = \sum_{items} p_i * (depth(i)+1)$$
+Analysis:Op">
+<meta property="og:updated_time" content="2016-12-26T23:38:04.819Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Minimum Spanning Tree">
-<meta name="twitter:description" content="Minimum spanning tree1. DefinitionFor undirected graph G = (V, E) (connected) and a cost ce for each edge e:Ethe MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.">
+<meta name="twitter:title" content="Optimal BSTs">
+<meta name="twitter:description" content="Setup:Input: Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n
+Goal: Compute a valid search tree that minimizes the weighted (average) search time.
+$$C(T) = \sum_{items} p_i * (depth(i)+1)$$
+Analysis:Op">
 
 
 
@@ -121,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/2016/12/26/Optimal-BSTs/"/>
 
 
 
 
 
-  <title> Minimum Spanning Tree | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Optimal BSTs | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -250,7 +259,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/23/Minimum-Spanning-Tree/">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Optimal-BSTs/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="sunbydw">
@@ -274,7 +283,7 @@
             
             
               
-                Minimum Spanning Tree
+                Optimal BSTs
               
             
           </h1>
@@ -289,8 +298,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-23T12:14:48-05:00">
-                2016-12-23
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T17:23:27-05:00">
+                2016-12-26
               </time>
             
 
@@ -347,53 +356,21 @@
       
 
       
-        <h1 id="Minimum-spanning-tree"><a href="#Minimum-spanning-tree" class="headerlink" title="Minimum spanning tree"></a>Minimum spanning tree</h1><h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition"></a>1. Definition</h2><p>For undirected graph G = (V, E) (connected) and a cost ce for each edge e:E<br>the MST is the minimum cost tree T in E that spans all vertices. cost: sum of edge costs.   </p>
-<ul>
-<li>T has no cycles   </li>
-<li>The subgraph T is connected   </li>
-</ul>
-<h2 id="2-Prim’s-MST-algorithm"><a href="#2-Prim’s-MST-algorithm" class="headerlink" title="2. Prim’s MST algorithm"></a>2. Prim’s MST algorithm</h2><h3 id="Principle"><a href="#Principle" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><p>X: The set of vertices already in the minimum spanning tree</p>
-<p>T: Current MST.</p>
-<p>V - X: vertices’s not explored yet.</p>
-<ul>
-<li>Choose any s in V, put s in X.</li>
-<li>while X != V:<ul>
-<li>for for every e(w,v): w in X, v in V - X, choose the least cost one e’</li>
-<li>put e’ in T, put v in X</li>
-</ul>
-</li>
-</ul>
-<h3 id="Heap-implementation"><a href="#Heap-implementation" class="headerlink" title="Heap implementation:"></a><strong>Heap implementation:</strong></h3><ul>
-<li>Use heap to represent set V - X.</li>
-<li>Set key to be the lowest cost connected with any vertex in V.</li>
-<li>When v extracted from top, upgrade keys of some elements:<ul>
-<li>for every edge e(v, w) if w in V - X: <ul>
-<li>delete w from heap;</li>
-<li>key(w) = min(key(w), cost(e(v, w))); </li>
-<li>add new w to the heap;</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>time complexity: ~ m * log(n)    m: # edges, n: # vertices</li>
-</ul>
-<h2 id="3-Kruskal’s-MST-algorithm"><a href="#3-Kruskal’s-MST-algorithm" class="headerlink" title="3. Kruskal’s MST algorithm"></a>3. Kruskal’s MST algorithm</h2><h3 id="Principle-1"><a href="#Principle-1" class="headerlink" title="Principle:"></a><strong>Principle:</strong></h3><ul>
-<li>T : the minimum spanning tree, initially an empty set </li>
-<li>Sort all of the edges based on cost, in the edge set E</li>
-<li>For each edge e in E with currently least cost, examine whether it cause a cycle in T (judging if there is a path from one to another by BFS/DFS)</li>
-<li>If not, put e and its end points in T, remove e in E</li>
-<li>Time complexity: ~m*n</li>
-</ul>
-<h3 id="Union-find-implementation"><a href="#Union-find-implementation" class="headerlink" title="Union-find implementation"></a><strong>Union-find implementation</strong></h3><ul>
-<li>Use a priority_queue to represent E</li>
-<li>Every time when an edge e popped from the pq, we examine that in the union-find data structure, whether the two end points of e are connected. (~log(n))</li>
-<li>If not, union two end point. (~log(n))</li>
-<li>Time complexity: ~m*log(n)</li>
-</ul>
-<h2 id="4-Notes"><a href="#4-Notes" class="headerlink" title="4. Notes"></a>4. Notes</h2><ul>
-<li>If all edge costs are distinct, it turns out that MST is unique.</li>
-<li>Cut Property: e is an edge of G. Suppose there is a cut (A, B) such that e is the cheapest edge of G that cross it. Then e belongs to the MST of G.</li>
-</ul>
+        <h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a><strong>Setup:</strong></h2><p><strong>Input:</strong> Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n</p>
+<p><strong>Goal:</strong> Compute a valid search tree that minimizes the weighted (average) search time.</p>
+<p>$$C(T) = \sum_{items} p_i * (depth(i)+1)$$</p>
+<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis:"></a><strong>Analysis:</strong></h2><h3 id="Optimal-Substructure"><a href="#Optimal-Substructure" class="headerlink" title="Optimal Substructure"></a><strong>Optimal Substructure</strong></h3><p>Suppose an optimal BST for keys {1, 2, . . . , n} has root r , left subtree $T_1$ , right subtree $T_2$. Then $T_1$ is optimal for the keys {1, 2, . . . , r − 1} and $T_2$ for the keys {r + 1, r + 2, . . . , n} (contradiction) </p>
+<p>At this time, we have:</p>
+<p>$$C(T) = \sum_{items} p_i + C(T_1) + C(T_2)$$</p>
+<h3 id="Relevant-Subproblems"><a href="#Relevant-Subproblems" class="headerlink" title="Relevant Subproblems"></a><strong>Relevant Subproblems</strong></h3><p>Contiguous intervals (S = {i, i + 1, . . . , j − 1, j} for every i ≤ j)  Note: Since we sometimes have to calculate the suffix of a prefix(this is not neither a prefix or suffix, but an contiguous interval)</p>
+<h3 id="The-Recurrence"><a href="#The-Recurrence" class="headerlink" title="The Recurrence:"></a><strong>The Recurrence:</strong></h3><p><strong>Notation:</strong> For 1 ≤ i ≤ j ≤ n, let $C_ij$ = weighted search cost of an optimal BST for the items { i, i + 1, . . . , j−1, j } [with probabilities $[ p_i , p_{i+1} , . . . , p_j ]$</p>
+<p><strong>Recurrence:</strong> For every 1 ≤ i ≤ j ≤ n: $$C_{ij}=min_{r=1,…,j}{\sum^j_{k=i}p_k + C_{i,r-1}+C_{r+1,j}}$$</p>
+<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm:"></a>Algorithm:</h2><p><strong>Important:</strong> Solve smallest subproblems first</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Let A = <span class="number">2</span>D <span class="built_in">array</span></div><div class="line"><span class="keyword">for</span> s = <span class="number">0</span>:n<span class="number">-1</span></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>:n</div><div class="line">        A[i][i+s] = min_r(sum(p(i:i+s) + A[i][r<span class="number">-1</span>] + A[r+<span class="number">1</span>][i+s])</div><div class="line"><span class="keyword">return</span> A[<span class="number">1</span>][n]</div></pre></td></tr></table></figure>
+<p><strong>Complexity Analysis:</strong> </p>
+<p>$-\Theta(n^2)$ Subproblems</p>
+<p>$-\Theta(j-i)$ time to compute A[i][j]</p>
+<p>$-\Theta(n^3)​$ time overall</p>
 
       
     </div>
@@ -417,7 +394,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Graph/" rel="tag"># Graph</a>
+            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
           
         </div>
       
@@ -426,8 +403,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/23/SCC/" rel="next" title="SCC">
-                <i class="fa fa-chevron-left"></i> SCC
+              <a href="/2016/12/26/Sequence-Alignment/" rel="next" title="Sequence Alignment Problem">
+                <i class="fa fa-chevron-left"></i> Sequence Alignment Problem
               </a>
             
           </div>
@@ -435,10 +412,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/23/Dijkstra/" rel="prev" title="Dijkstra">
-                Dijkstra <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -561,7 +534,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-spanning-tree"><span class="nav-number">1.</span> <span class="nav-text">Minimum spanning tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Definition"><span class="nav-number">1.1.</span> <span class="nav-text">1. Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Prim’s-MST-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">2. Prim’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle"><span class="nav-number">1.2.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap-implementation"><span class="nav-number">1.2.2.</span> <span class="nav-text">Heap implementation:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kruskal’s-MST-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">3. Kruskal’s MST algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Principle-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Principle:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Union-find-implementation"><span class="nav-number">1.3.2.</span> <span class="nav-text">Union-find implementation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Notes"><span class="nav-number">1.4.</span> <span class="nav-text">4. Notes</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Setup"><span class="nav-number">1.</span> <span class="nav-text">Setup:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Analysis"><span class="nav-number">2.</span> <span class="nav-text">Analysis:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimal-Substructure"><span class="nav-number">2.1.</span> <span class="nav-text">Optimal Substructure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Relevant-Subproblems"><span class="nav-number">2.2.</span> <span class="nav-text">Relevant Subproblems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Recurrence"><span class="nav-number">2.3.</span> <span class="nav-text">The Recurrence:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">3.</span> <span class="nav-text">Algorithm:</span></a></li></ol></div>
             
 
           </div>
