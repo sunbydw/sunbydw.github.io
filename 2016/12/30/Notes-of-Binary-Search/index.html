@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Dynamic Programming," />
+  <meta name="keywords" content="Binary Search," />
 
 
 
@@ -84,25 +84,28 @@
 
 
 
-<meta name="description" content="Principles of Dynamic Programming:
-Identify a small number of subproblems.
-Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.
-After solving all subproblems,">
+<meta name="description" content="相关变量： mid, lo, hi
+首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：
+
+中间值包括在左半部分
+123456789101112lo = 0, hi = size - 1;while (lo &amp;lt; hi) &amp;#123;    midd = (lo + hi) &amp;gt;&amp;gt; 1;  // more efficient tha">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Principles of Dynamic Programming">
-<meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/index.html">
+<meta property="og:title" content="Notes of Binary Search">
+<meta property="og:url" content="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Principles of Dynamic Programming:
-Identify a small number of subproblems.
-Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.
-After solving all subproblems,">
-<meta property="og:updated_time" content="2016-12-29T17:08:14.903Z">
+<meta property="og:description" content="相关变量： mid, lo, hi
+首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：
+
+中间值包括在左半部分
+123456789101112lo = 0, hi = size - 1;while (lo &amp;lt; hi) &amp;#123;    midd = (lo + hi) &amp;gt;&amp;gt; 1;  // more efficient tha">
+<meta property="og:updated_time" content="2016-12-31T01:18:20.621Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Principles of Dynamic Programming">
-<meta name="twitter:description" content="Principles of Dynamic Programming:
-Identify a small number of subproblems.
-Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.
-After solving all subproblems,">
+<meta name="twitter:title" content="Notes of Binary Search">
+<meta name="twitter:description" content="相关变量： mid, lo, hi
+首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：
+
+中间值包括在左半部分
+123456789101112lo = 0, hi = size - 1;while (lo &amp;lt; hi) &amp;#123;    midd = (lo + hi) &amp;gt;&amp;gt; 1;  // more efficient tha">
 
 
 
@@ -130,13 +133,13 @@ After solving all subproblems,">
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/"/>
 
 
 
 
 
-  <title> Principles of Dynamic Programming | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Notes of Binary Search | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -259,7 +262,7 @@ After solving all subproblems,">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="sunbydw">
@@ -283,7 +286,7 @@ After solving all subproblems,">
             
             
               
-                Principles of Dynamic Programming
+                Notes of Binary Search
               
             
           </h1>
@@ -298,8 +301,8 @@ After solving all subproblems,">
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T13:27:46-05:00">
-                2016-12-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-30T18:05:15-05:00">
+                2016-12-30
               </time>
             
 
@@ -321,8 +324,8 @@ After solving all subproblems,">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithms</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -356,29 +359,47 @@ After solving all subproblems,">
       
 
       
-        <h2 id="Principles-of-Dynamic-Programming"><a href="#Principles-of-Dynamic-Programming" class="headerlink" title="Principles of Dynamic Programming:"></a>Principles of Dynamic Programming:</h2><ol>
-<li>Identify a small number of subproblems.</li>
-<li>Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.</li>
-<li>After solving all subproblems, can quickly compute the final solution.</li>
-</ol>
-<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h2><ol>
-<li>Subproblems are always some prefix or suffix of the problem.</li>
-<li>A form of memorization can not only avoid redundantly calculate the solutions of subproblems, but also help reconstruct specific answer sometimes (not just some kind of value).</li>
-<li>面试中常见的动态规划类型：<ol>
-<li>坐标型动态规划     15%            给了一个初始状态和末状态，一般要开初始状态到末状态维度的数组</li>
-<li>序列型动态规划     30%           一个序列，需要开m大小数组</li>
-<li>双序列型动态规划 30%            两个序列，需要开m*n大小的数组</li>
-<li>划分型动态规划     10%</li>
-<li>背包型动态规划     10%</li>
-<li>区间型动态规划       5%</li>
-</ol>
+        <p>相关变量： mid, lo, hi</p>
+<p>首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：</p>
+<ol>
+<li><p>中间值包括在左半部分</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// more efficient than (lo + hi) / 2</span></div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值包括在了某个区间内，说明该区间内可能有比中间值更加符合条件的，所以查到中间值不返回</span></div></pre></td></tr></table></figure>
 </li>
-<li>解题步骤：<ol>
-<li>找state(subproblem)</li>
-<li>找function(recurrence)</li>
-<li>initialize</li>
-<li>找answer （一般是最后一个数）</li>
+<li><p>中间值包括在右半部分</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;        </div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值不返回的道理同上。</span></div></pre></td></tr></table></figure>
+<p>记忆方法： 这两种形式的区别相当于偶数个数的时候取左边的中位数还是右边的中位数。中间值包括在右边，这样取右边的中位数，就两边更平衡一些</p>
+</li>
+<li><p>中间值两边都不包括</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt;= hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span> some_value;  <span class="comment">// 中间值返回</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ol>
+<p>前两种模式结束后都是 lo == high，因此返回哪个都行；后一种结束为：lo == high + 1，但是一般都返回false了（二分查找没找到）</p>
+<p>例子：</p>
+<ol>
+<li><p>中间值包括在左半部分：</p>
+<blockquote>
+<p>Suppose a sorted array is rotated at some pivot unknown to you beforehand.</p>
+<p>(i.e., <code>0 1 2 4 5 6 7</code> might become <code>4 5 6 7 0 1 2</code>).</p>
+<p>Find the minimum element. You may assume no duplicate exists in the array.</p>
+</blockquote>
+<p>   以[4,5,6,7,0,1,2] 为例，第一次肯定是走右边（7 &gt; 2), 7肯定不会是最小的，所以 lo 取7 下一个位置；若是[5,6,7,0,1,2,4], 第一次走左边，0是最小，肯定要包括。 所以中间值包括在左半部分</p>
+<p>​</p>
+</li>
+<li><p>中间值包括在右半部分：</p>
+<blockquote>
+<p>Given n pieces of wood with length <code>L[i]</code> (integer array).<br>Cut them into small pieces to guarantee you could have <strong>equal or more</strong> than k pieces with the same length. What is the <strong>longest</strong> length you can get from the n pieces of wood? Given L &amp; k, return the maximum length of the small pieces.</p>
+<p><strong>Example</strong><br>For <code>L=[232, 124, 456]</code>, <code>k=7</code>, return <code>114</code>.</p>
+</blockquote>
+</li>
+</ol>
+<p>​        当一个长度长了，导致k不够，这时需要减小长度（走左边），这个太长的长度本身不能作为答案；当一个长度短了，导致k大了或刚好等于，这时增加长度可能有更好的答案，也可能没有，因此我们需要把这个长度包含在下次的迭代里的。所以这种情况下中间值包括在右半部分。</p>
+<ol>
+<li><p>中间值两边都不包括</p>
+<blockquote>
+<p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
+<p>You may assume <strong>NO</strong> duplicates in the array.</p>
+</blockquote>
+<p>这道题相当于二分查找。二分查找中，无论走左边还是走右边，中间值都是不符合要求的，因此可以直接剔除。</p>
 </li>
 </ol>
 
@@ -404,7 +425,7 @@ After solving all subproblems,">
       
         <div class="post-tags">
           
-            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
+            <a href="/tags/Binary-Search/" rel="tag"># Binary Search</a>
           
         </div>
       
@@ -413,8 +434,8 @@ After solving all subproblems,">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/26/max-weight-independent-set/" rel="next" title="Max-Weight Independent Set">
-                <i class="fa fa-chevron-left"></i> Max-Weight Independent Set
+              <a href="/2016/12/26/Optimal-BSTs/" rel="next" title="Optimal BSTs">
+                <i class="fa fa-chevron-left"></i> Optimal BSTs
               </a>
             
           </div>
@@ -422,10 +443,6 @@ After solving all subproblems,">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/26/Sequence-Alignment/" rel="prev" title="Sequence Alignment Problem">
-                Sequence Alignment Problem <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -472,17 +489,8 @@ After solving all subproblems,">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -538,22 +546,6 @@ After solving all subproblems,">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Dynamic-Programming"><span class="nav-number">1.</span> <span class="nav-text">Principles of Dynamic Programming:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notes"><span class="nav-number">2.</span> <span class="nav-text">Notes:</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>

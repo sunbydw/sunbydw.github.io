@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Dynamic Programming," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,25 +84,12 @@
 
 
 
-<meta name="description" content="Principles of Dynamic Programming:
-Identify a small number of subproblems.
-Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.
-After solving all subproblems,">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Principles of Dynamic Programming">
-<meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="sunbydw">
+<meta property="og:url" content="http://sunbydw.github.io/categories/Algorithm/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Principles of Dynamic Programming:
-Identify a small number of subproblems.
-Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.
-After solving all subproblems,">
-<meta property="og:updated_time" content="2016-12-29T17:08:14.903Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Principles of Dynamic Programming">
-<meta name="twitter:description" content="Principles of Dynamic Programming:
-Identify a small number of subproblems.
-Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.
-After solving all subproblems,">
+<meta name="twitter:title" content="sunbydw">
 
 
 
@@ -130,13 +117,13 @@ After solving all subproblems,">
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/categories/Algorithm/"/>
 
 
 
 
 
-  <title> Principles of Dynamic Programming | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Category: Algorithm | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -157,7 +144,7 @@ After solving all subproblems,">
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,199 +236,47 @@ After solving all subproblems,">
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/Principles-of-Dynamic-Programming/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="sunbydw">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="sunbydw">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Principles of Dynamic Programming
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T13:27:46-05:00">
-                2016-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithms</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h2 id="Principles-of-Dynamic-Programming"><a href="#Principles-of-Dynamic-Programming" class="headerlink" title="Principles of Dynamic Programming:"></a>Principles of Dynamic Programming:</h2><ol>
-<li>Identify a small number of subproblems.</li>
-<li>Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.</li>
-<li>After solving all subproblems, can quickly compute the final solution.</li>
-</ol>
-<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h2><ol>
-<li>Subproblems are always some prefix or suffix of the problem.</li>
-<li>A form of memorization can not only avoid redundantly calculate the solutions of subproblems, but also help reconstruct specific answer sometimes (not just some kind of value).</li>
-<li>面试中常见的动态规划类型：<ol>
-<li>坐标型动态规划     15%            给了一个初始状态和末状态，一般要开初始状态到末状态维度的数组</li>
-<li>序列型动态规划     30%           一个序列，需要开m大小数组</li>
-<li>双序列型动态规划 30%            两个序列，需要开m*n大小的数组</li>
-<li>划分型动态规划     10%</li>
-<li>背包型动态规划     10%</li>
-<li>区间型动态规划       5%</li>
-</ol>
-</li>
-<li>解题步骤：<ol>
-<li>找state(subproblem)</li>
-<li>找function(recurrence)</li>
-<li>initialize</li>
-<li>找answer （一般是最后一个数）</li>
-</ol>
-</li>
-</ol>
-
-      
+  <section id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        Algorithm
+        <small>Category</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2016/12/30/Notes-of-Binary-Search/" itemprop="url">
+              
+                <span itemprop="name">Notes of Binary Search</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-12-30T18:05:15-05:00"
+              content="2016-12-30" >
+          12-30
+        </time>
+      </div>
 
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/12/26/max-weight-independent-set/" rel="next" title="Max-Weight Independent Set">
-                <i class="fa fa-chevron-left"></i> Max-Weight Independent Set
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/26/Sequence-Alignment/" rel="prev" title="Sequence Alignment Problem">
-                Sequence Alignment Problem <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+
 
 
           </div>
@@ -449,10 +284,6 @@ After solving all subproblems,">
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -472,17 +303,8 @@ After solving all subproblems,">
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -538,22 +360,6 @@ After solving all subproblems,">
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Dynamic-Programming"><span class="nav-number">1.</span> <span class="nav-text">Principles of Dynamic Programming:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notes"><span class="nav-number">2.</span> <span class="nav-text">Notes:</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
     </div>
@@ -652,10 +458,6 @@ After solving all subproblems,">
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
