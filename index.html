@@ -248,6 +248,165 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2017/01/01/Binary-Tree-Traversal/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/01/Binary-Tree-Traversal/" itemprop="url">
+                  Binary Tree Traversal
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-01T21:26:59-05:00">
+                2017-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a><strong>二叉树的遍历</strong></h2><p>二叉树的遍历分为：pre-order (root在先)， in-order(root 在中间)， post-order(root在后)，level-order(层序遍历)，前三种本质上是DFS, 后一种为BFS, 但是也可以用DFS实现。</p>
+<p>前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。</p>
+<h3 id="pre-order"><a href="#pre-order" class="headerlink" title="pre-order"></a><strong>pre-order</strong></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自顶向下</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PreOrderTraverse(TreeNode *root) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; travStack;</div><div class="line">    travStack.push(root);</div><div class="line">    <span class="keyword">while</span> (!travStack.empty()) &#123;</div><div class="line">        TreeNode *curt = travStack.top();</div><div class="line">        travStack.pop();</div><div class="line">        <span class="keyword">if</span> (curt-&gt;right) travStack.push(curt-&gt;right);</div><div class="line">        <span class="keyword">if</span> (curt-&gt;left)  travStack.push(curt-&gt;left);</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自底向上</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PreOrderTraverse(TreeNode *root) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; travStack;</div><div class="line">    TreeNode *curt = root;</div><div class="line">    <span class="keyword">while</span> (curt || !travStack.empty()) &#123;</div><div class="line">        <span class="keyword">while</span> (curt) &#123;</div><div class="line">            travStack.push(curt);</div><div class="line">            result.push_back(curt-&gt;val);     <span class="comment">// 提前返回</span></div><div class="line">            curt = curt-&gt;left;</div><div class="line">        &#125;</div><div class="line">        curt = travStack.top();</div><div class="line">        travStack.pop();</div><div class="line">        curt = curt-&gt;right;</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>pre-order三种traversal最好实现循环的。因为不会出现重复访问的情况。</p>
+<h3 id="In-order"><a href="#In-order" class="headerlink" title="In-order"></a><strong>In-order</strong></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; InOrderTraverse(TreeNode *root) &#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">  </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    Stack&lt;TreeNode*&gt; travStack;</div><div class="line">    TreeNode *curt = root;</div><div class="line">    <span class="keyword">while</span> (curt || !travStack.empty()) &#123;</div><div class="line">        <span class="keyword">while</span> (curt) &#123;</div><div class="line">            travStack.push(curt);</div><div class="line">            curt = curt-&gt;left;</div><div class="line">        &#125;</div><div class="line">        curt = travStack.top();</div><div class="line">        result.push_back(curt-&gt;val);</div><div class="line">        travStack.pop();</div><div class="line">        curt = curt-&gt;right;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相当于一种由底至上的思想，对于一个root, 先访问最最左边的子树，在最最左边的子树中，先左节点，再中间，然后是中间的右子树</p>
+<h3 id="Post-order"><a href="#Post-order" class="headerlink" title="Post-order"></a><strong>Post-order</strong></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PostOrderTraverse(TreeNode *root) &#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; travStack;</div><div class="line">    TreeNode *curt = root, *pLastVisited = <span class="literal">NULL</span>;</div><div class="line">    <span class="keyword">while</span> (curt || !travStack.empty()) &#123;</div><div class="line">        <span class="keyword">while</span> (curt) &#123;</div><div class="line">            travStack.push(curt);</div><div class="line">            curt = curt-&gt;left;</div><div class="line">        &#125;</div><div class="line">        curt = travStack.top();</div><div class="line">        <span class="keyword">if</span> (!curt-&gt;right || (curt-&gt;right == pLastVisited) &#123;</div><div class="line">            result.push(curt-&gt;val);</div><div class="line">            travStack.pop();</div><div class="line">            curt = <span class="literal">NULL</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> curt = curt-&gt;right;</div><div class="line">    &#125;</div><div class="line">            </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>和in-order不同的只有while循环里的最后一个部分，in-order直接返回当前，然后把curt给right, post-order是在判断右边访问过的情况下再返回当前，如果没有访问过,curt先给right。有没有访问过用一个指针记录。</p>
+<p>此外，post-order有一个性质，即它是另外一个版本的pre-order的反序。这个pre-order版本为：先root, 再右子树，再左子树。因此可以根据pre-order写出如下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自顶向下</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PostOrderTraverse(TreeNode *root) &#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(); </div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; travStack;</div><div class="line">    travStack.push(root);</div><div class="line">    <span class="keyword">while</span> (!travStack.empty()) &#123;</div><div class="line">        TreeNode *curt = travStack.top();</div><div class="line">        travStack.pop();</div><div class="line">        <span class="keyword">if</span> (curt-&gt;left)  travStack.push(curt-&gt;left);    <span class="comment">// 先右再左</span></div><div class="line">        <span class="keyword">if</span> (curt-&gt;right) travStack.push(curt-&gt;right);</div><div class="line">    &#125;</div><div class="line">    reverse(result.begin(), result.end());              <span class="comment">// 反序</span></div><div class="line">  </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自底向上</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PostOrderTraverse(TreeNode *root) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; travStack;</div><div class="line">    TreeNode *curt = root;</div><div class="line">    <span class="keyword">while</span> (curt || !travStack.empty()) &#123;</div><div class="line">        <span class="keyword">while</span> (curt) &#123;</div><div class="line">            travStack.push(curt);</div><div class="line">            result.push_back(curt-&gt;val);     <span class="comment">// 提前返回</span></div><div class="line">            curt = curt-&gt;right;				 <span class="comment">// 先右边</span></div><div class="line">        &#125;</div><div class="line">        curt = travStack.top();</div><div class="line">        travStack.pop();</div><div class="line">        curt = curt-&gt;left;                   <span class="comment">// 和preorder完全对称</span></div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    reverse(result.begin(), result.end());</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h3><p>pre-order: 自顶向下， 自底向上</p>
+<p>in-order:  自底向上</p>
+<p>post-order: 自顶向下（反pre-order), 自底向上(反pre-order)，自底向上(改in-order)</p>
+<h3 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a><strong>层序遍历</strong></h3><p>BFS:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; LevelOrderTraverse(TreeNode *root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</div><div class="line">    <span class="built_in">queue</span>&lt;TreeNode*&gt; travQ;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> result; </div><div class="line">    travQ.push(root);</div><div class="line">    <span class="keyword">while</span>(!travQ.empty()) &#123;</div><div class="line">        <span class="keyword">int</span> size = travQ.size();</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; thisLevel;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</div><div class="line">            TreeNode *curt = travQ.top();</div><div class="line">            travQ.pop():</div><div class="line">            thisLevel.push_back(curt-&gt;val);</div><div class="line">            <span class="keyword">if</span> (curt-&gt;left)  travQ.push(curt-&gt;left);</div><div class="line">            <span class="keyword">if</span> (curt-&gt;right) travQ.push(curt-&gt;right);</div><div class="line">        &#125;</div><div class="line">        result.push_back(thisLevel);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>DFS:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; &amp;res, TreeNode *root, <span class="keyword">int</span> level)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span>;</div><div class="line">    <span class="keyword">if</span> (level == res.size()) &#123;</div><div class="line">        res.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;());</div><div class="line">    &#125;</div><div class="line">    res[level].push_back(root-&gt;val);</div><div class="line">    helper(res, root-&gt;left, level+<span class="number">1</span>);</div><div class="line">    helper(res, root-&gt;right, level+<span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; LevelOrderTraverse(TreeNode *root) &#123;</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; result;</div><div class="line">    helper(result, root, <span class="number">0</span>);</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1827,7 +1986,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1845,7 +2004,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1885,7 +2044,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -2019,7 +2178,24 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 
