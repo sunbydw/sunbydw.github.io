@@ -85,21 +85,18 @@
 
 
 <meta name="description" content="二叉树的遍历二叉树的遍历分为：pre-order (root在先)， in-order(root 在中间)， post-order(root在后)，level-order(层序遍历)，前三种本质上是DFS, 后一种为BFS, 但是也可以用DFS实现。
-前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。
-pre-order1234567891011121314151617// 自">
+前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Binary Tree Traversal">
 <meta property="og:url" content="http://sunbydw.github.io/2017/01/01/Binary-Tree-Traversal/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="二叉树的遍历二叉树的遍历分为：pre-order (root在先)， in-order(root 在中间)， post-order(root在后)，level-order(层序遍历)，前三种本质上是DFS, 后一种为BFS, 但是也可以用DFS实现。
-前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。
-pre-order1234567891011121314151617// 自">
-<meta property="og:updated_time" content="2017-01-02T03:43:43.080Z">
+前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。">
+<meta property="og:updated_time" content="2017-02-19T16:40:02.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binary Tree Traversal">
 <meta name="twitter:description" content="二叉树的遍历二叉树的遍历分为：pre-order (root在先)， in-order(root 在中间)， post-order(root在后)，level-order(层序遍历)，前三种本质上是DFS, 后一种为BFS, 但是也可以用DFS实现。
-前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。
-pre-order1234567891011121314151617// 自">
+前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。">
 
 
 
@@ -355,6 +352,7 @@ pre-order1234567891011121314151617// 自">
       
         <h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a><strong>二叉树的遍历</strong></h2><p>二叉树的遍历分为：pre-order (root在先)， in-order(root 在中间)， post-order(root在后)，level-order(层序遍历)，前三种本质上是DFS, 后一种为BFS, 但是也可以用DFS实现。</p>
 <p>前三种，DFS的实现分为递归和循环，递归很简单，本篇主要讨论循环实现。</p>
+<a id="more"></a>
 <h3 id="pre-order"><a href="#pre-order" class="headerlink" title="pre-order"></a><strong>pre-order</strong></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自顶向下</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PreOrderTraverse(TreeNode *root) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; travStack;</div><div class="line">    travStack.push(root);</div><div class="line">    <span class="keyword">while</span> (!travStack.empty()) &#123;</div><div class="line">        TreeNode *curt = travStack.top();</div><div class="line">        travStack.pop();</div><div class="line">        <span class="keyword">if</span> (curt-&gt;right) travStack.push(curt-&gt;right);</div><div class="line">        <span class="keyword">if</span> (curt-&gt;left)  travStack.push(curt-&gt;left);</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 自底向上</span></div><div class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; PreOrderTraverse(TreeNode *root) </div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;();</div><div class="line">    </div><div class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</div><div class="line">    <span class="built_in">stack</span>&lt;TreeNode*&gt; travStack;</div><div class="line">    TreeNode *curt = root;</div><div class="line">    <span class="keyword">while</span> (curt || !travStack.empty()) &#123;</div><div class="line">        <span class="keyword">while</span> (curt) &#123;</div><div class="line">            travStack.push(curt);</div><div class="line">            result.push_back(curt-&gt;val);     <span class="comment">// 提前返回</span></div><div class="line">            curt = curt-&gt;left;</div><div class="line">        &#125;</div><div class="line">        curt = travStack.top();</div><div class="line">        travStack.pop();</div><div class="line">        curt = curt-&gt;right;</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>pre-order三种traversal最好实现循环的。因为不会出现重复访问的情况。</p>
@@ -413,6 +411,10 @@ pre-order1234567891011121314151617// 自">
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/27/Quicksort/" rel="prev" title="Quicksort">
+                Quicksort <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -482,7 +484,7 @@ pre-order1234567891011121314151617// 自">
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -500,7 +502,7 @@ pre-order1234567891011121314151617// 自">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

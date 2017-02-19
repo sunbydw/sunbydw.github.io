@@ -84,12 +84,25 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="sunbydw">
-<meta property="og:url" content="http://sunbydw.github.io/tags/Binary-Search/index.html">
+<meta name="description" content="Big-OhDefinition: $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that 
+​                                $T(n) \leq c * f(n)$
+For all $n \geq n_0$ 
+Notes: The degree of polynomial">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Big Oh Notation">
+<meta property="og:url" content="http://sunbydw.github.io/2017/02/19/Big-Oh-Notation/index.html">
 <meta property="og:site_name" content="sunbydw">
+<meta property="og:description" content="Big-OhDefinition: $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that 
+​                                $T(n) \leq c * f(n)$
+For all $n \geq n_0$ 
+Notes: The degree of polynomial">
+<meta property="og:updated_time" content="2017-02-19T16:40:06.120Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sunbydw">
+<meta name="twitter:title" content="Big Oh Notation">
+<meta name="twitter:description" content="Big-OhDefinition: $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that 
+​                                $T(n) \leq c * f(n)$
+For all $n \geq n_0$ 
+Notes: The degree of polynomial">
 
 
 
@@ -117,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/tags/Binary-Search/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/2017/02/19/Big-Oh-Notation/"/>
 
 
 
 
 
-  <title> Tag: Binary Search | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Big Oh Notation | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -144,7 +157,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left  ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -236,46 +249,169 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Binary Search
-        <small>Tag</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2017/02/19/Big-Oh-Notation/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Big Oh Notation
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-19T11:23:38-05:00">
+                2017-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithms</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h3 id="Big-Oh"><a href="#Big-Oh" class="headerlink" title="Big-Oh"></a><strong>Big-Oh</strong></h3><p><strong>Definition:</strong> $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that </p>
+<p>​                                $T(n) \leq c * f(n)$</p>
+<p>For all $n \geq n_0$ </p>
+<p><strong>Notes:</strong> The degree of polynomial of T(n) must be less or equal than f(n), In other words, f(n) is a measurement of upper bound of T(n). (O里面的东西大)</p>
+<h3 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big Theta"></a><strong>Big Theta</strong></h3><p><strong>Definition:</strong>  $T(n) = \theta(f(n))$</p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/12/30/Notes-of-Binary-Search/" itemprop="url">
-              
-                <span itemprop="name">Notes of Binary Search</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-12-30T18:05:15-05:00"
-              content="2016-12-30" >
-          12-30
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/27/Master-method/" rel="next" title="Master method">
+                <i class="fa fa-chevron-left"></i> Master method
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -283,6 +419,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -302,8 +442,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -359,6 +508,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Oh"><span class="nav-number">1.</span> <span class="nav-text">Big-Oh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Theta"><span class="nav-number">2.</span> <span class="nav-text">Big Theta</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -457,6 +622,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
