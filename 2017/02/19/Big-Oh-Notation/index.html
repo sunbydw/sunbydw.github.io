@@ -84,25 +84,16 @@
 
 
 
-<meta name="description" content="Big-OhDefinition: $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that 
-​                                $$T(n) \leq c * f(n)$$
-For all $n \geq n_0$ 
-Notes: The degree of polynomi">
+<meta name="description" content="Big Oh Notation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Big Oh Notation">
 <meta property="og:url" content="http://sunbydw.github.io/2017/02/19/Big-Oh-Notation/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Big-OhDefinition: $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that 
-​                                $$T(n) \leq c * f(n)$$
-For all $n \geq n_0$ 
-Notes: The degree of polynomi">
-<meta property="og:updated_time" content="2017-02-19T16:43:02.330Z">
+<meta property="og:description" content="Big Oh Notation">
+<meta property="og:updated_time" content="2017-02-19T17:01:32.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Big Oh Notation">
-<meta name="twitter:description" content="Big-OhDefinition: $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that 
-​                                $$T(n) \leq c * f(n)$$
-For all $n \geq n_0$ 
-Notes: The degree of polynomi">
+<meta name="twitter:description" content="Big Oh Notation">
 
 
 
@@ -356,11 +347,17 @@ Notes: The degree of polynomi">
       
 
       
-        <h3 id="Big-Oh"><a href="#Big-Oh" class="headerlink" title="Big-Oh"></a><strong>Big-Oh</strong></h3><p><strong>Definition:</strong> $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that </p>
-<p>​                                $$T(n) \leq c * f(n)$$</p>
+        <h2 id="Big-Oh-Notation"><a href="#Big-Oh-Notation" class="headerlink" title="Big Oh Notation"></a>Big Oh Notation</h2><a id="more"></a>
+<h3 id="Big-Oh"><a href="#Big-Oh" class="headerlink" title="Big-Oh"></a><strong>Big-Oh</strong></h3><p><strong>Definition:</strong> $T(n) =  O(f(n))$ if and only if there exist constants $c, n_0$ such that </p>
+<p>$$T(n) \leq c * f(n)$$</p>
 <p>For all $n \geq n_0$ </p>
-<p><strong>Notes:</strong> The degree of polynomial of T(n) must be less or equal than f(n), In other words, f(n) is a measurement of upper bound of T(n). (O里面的东西大)</p>
-<h3 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big Theta"></a><strong>Big Theta</strong></h3><p><strong>Definition:</strong>  $T(n) = \theta(f(n))$</p>
+<p><strong>Notes:</strong> The degree of polynomial of T(n) must be less or equal than f(n), In other words, f(n) is a measurement of upper bound of T(n). (O里面的阶数大)</p>
+<h3 id="Big-Omega"><a href="#Big-Omega" class="headerlink" title="Big Omega"></a><strong>Big Omega</strong></h3><p><strong>Definition:</strong> $T(n) = \Omega(f(n))$ if and only if there exist constants $c, n_0$ such that</p>
+<p>$$T(n) \geq c * f(n), \forall n \geq n_0$$</p>
+<p><strong>Notes:</strong> The degree of polynomial of T(n) must be greater or equal than f(n), In other words, f(n) is a measurement of lower bound of T(n). (O里面的阶数小)</p>
+<h3 id="Big-Theta"><a href="#Big-Theta" class="headerlink" title="Big Theta"></a><strong>Big Theta</strong></h3><p><strong>Definition:</strong>  $T(n) = \theta(f(n))$ if and only if</p>
+<p>$$T(n) = O(f(n)) \&amp;\&amp; T(n)  = \Omega(f(n))$$</p>
+<p><strong>Notes:</strong> The degree of polynomial of T(n) must be equal to f(n). In other words, f(n) is a measurements of computation cost of T(n). (两个阶数是一样的，系数无所谓)</p>
 
       
     </div>
@@ -518,7 +515,7 @@ Notes: The degree of polynomi">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Oh"><span class="nav-number">1.</span> <span class="nav-text">Big-Oh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Theta"><span class="nav-number">2.</span> <span class="nav-text">Big Theta</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Big-Oh-Notation"><span class="nav-number">1.</span> <span class="nav-text">Big Oh Notation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Oh"><span class="nav-number">1.1.</span> <span class="nav-text">Big-Oh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Omega"><span class="nav-number">1.2.</span> <span class="nav-text">Big Omega</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Theta"><span class="nav-number">1.3.</span> <span class="nav-text">Big Theta</span></a></li></ol></li></ol></div>
             
 
           </div>
