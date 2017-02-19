@@ -84,13 +84,16 @@
 
 
 
+<meta name="description" content="Motivation:To evaluate the the divide and conquer algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Master method">
 <meta property="og:url" content="http://sunbydw.github.io/2017/01/27/Master-method/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:updated_time" content="2017-01-27T15:33:48.429Z">
+<meta property="og:description" content="Motivation:To evaluate the the divide and conquer algorithm">
+<meta property="og:updated_time" content="2017-02-19T18:07:04.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Master method">
+<meta name="twitter:description" content="Motivation:To evaluate the the divide and conquer algorithm">
 
 
 
@@ -344,7 +347,41 @@
       
 
       
-        
+        <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation:"></a>Motivation:</h2><p>To evaluate the the divide and conquer algorithm</p>
+<a id="more"></a>
+<h2 id="Recurrence-Format"><a href="#Recurrence-Format" class="headerlink" title="Recurrence Format:"></a>Recurrence Format:</h2><ol>
+<li><p>Base case: $T(n) \leq $ a constant for all sufficiently small n</p>
+</li>
+<li><p>For all larger n:</p>
+<p>$$T(n) \leq aT(n/b) + O(n{\^d})$$</p>
+<p>where:</p>
+<p>​    a = number of recursive calls (&gt;=1)</p>
+<p>​    b = input size shrinkage factor(&gt;1)</p>
+<p>​    d = exponent in running time of “combine step” (&gt;=0)</p>
+<p>​    [a, b, d <strong>independent of n</strong>]</p>
+</li>
+</ol>
+<h2 id="Master-Method"><a href="#Master-Method" class="headerlink" title="Master Method:"></a>Master Method:</h2><p>$$\begin{equation}T(n) = \begin{cases} O(n^d\log n) &amp;\mbox{if a = b^d}\ O(n^d) &amp;\mbox{if a &lt; b^d}\ O(n^{log_b a}) &amp;\mbox{if a &gt; b^d} \end{cases} \end{equation}$$</p>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h2><ol>
+<li><p>To memorize:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Tn = (logb(a) == d) ? n^d*<span class="built_in">log</span>(n) : max(n^d, n^(logb(a)))</div></pre></td></tr></table></figure>
+</li>
+<li><p>Intuition:</p>
+<ol>
+<li><p>In level j, the number of subproblems is a^j, the size of one subproblem is n/(b^j)</p>
+</li>
+<li><p>The amount work to be done in the level j is $a^j <em> (n/b^j)^d = n^d </em> (a/b^d)^j$</p>
+</li>
+<li><p>Here $n^d$ is a constant amount of work in each level, a is <strong>rate of subproblem proliferation</strong> (RSP), $b^d$ is <strong>rate of work shrinkage</strong> (RWS).</p>
+</li>
+<li><p>If RSP &lt; RWS, the amount of work decreases as level increases, so the the most amount of work are done in the root. Total work: $n^d$ </p>
+<p>If RSP = RWS, the amount of work in every level keeps the same ($n^d$), so the total amount of work is nums of level <em> works every level. i.e. $n^d </em> log_bn$</p>
+<p>If RSP &gt; RWS, the amount of work increases as level increases, so the most amount of work are done in the leaves of the tree. Total work: the number of the leaves. i.e. $a^{log_bn} = n^{log_ba}$</p>
+</li>
+</ol>
+</li>
+</ol>
+
       
     </div>
 
@@ -435,8 +472,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -492,6 +538,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recurrence-Format"><span class="nav-number">2.</span> <span class="nav-text">Recurrence Format:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Master-Method"><span class="nav-number">3.</span> <span class="nav-text">Master Method:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notes"><span class="nav-number">4.</span> <span class="nav-text">Notes:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
