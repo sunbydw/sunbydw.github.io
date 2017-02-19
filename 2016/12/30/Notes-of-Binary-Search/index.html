@@ -85,27 +85,18 @@
 
 
 <meta name="description" content="相关变量： mid, lo, hi
-首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：
-
-中间值包括在左半部分
-123456789101112lo = 0, hi = size - 1;while (lo &amp;lt; hi) &amp;#123;    midd = (lo + hi) &amp;gt;&amp;gt; 1;  // more efficient tha">
+首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Notes of Binary Search">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="相关变量： mid, lo, hi
-首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：
-
-中间值包括在左半部分
-123456789101112lo = 0, hi = size - 1;while (lo &amp;lt; hi) &amp;#123;    midd = (lo + hi) &amp;gt;&amp;gt; 1;  // more efficient tha">
-<meta property="og:updated_time" content="2016-12-31T01:25:44.227Z">
+首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：">
+<meta property="og:updated_time" content="2017-02-19T16:46:24.893Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes of Binary Search">
 <meta name="twitter:description" content="相关变量： mid, lo, hi
-首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：
-
-中间值包括在左半部分
-123456789101112lo = 0, hi = size - 1;while (lo &amp;lt; hi) &amp;#123;    midd = (lo + hi) &amp;gt;&amp;gt; 1;  // more efficient tha">
+首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：">
 
 
 
@@ -361,6 +352,7 @@
       
         <p>相关变量： mid, lo, hi</p>
 <p>首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：</p>
+<a id="more"></a>
 <ol>
 <li><p>中间值包括在左半部分</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// more efficient than (lo + hi) / 2</span></div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值包括在了某个区间内，说明该区间内可能有比中间值更加符合条件的，所以查到中间值不返回</span></div></pre></td></tr></table></figure>

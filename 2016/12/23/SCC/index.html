@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/23/SCC/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="Computing the strongly connected componentsSetupA strongly connected component is a set of vertices and edges so that every pair of vertices in the set can get to each other through some edges in the">
-<meta property="og:updated_time" content="2016-12-25T04:23:19.716Z">
+<meta property="og:updated_time" content="2017-02-19T16:48:39.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SCC">
 <meta name="twitter:description" content="Computing the strongly connected componentsSetupA strongly connected component is a set of vertices and edges so that every pair of vertices in the set can get to each other through some edges in the">
@@ -349,6 +349,7 @@
       
         <h1 id="Computing-the-strongly-connected-components"><a href="#Computing-the-strongly-connected-components" class="headerlink" title="Computing the strongly connected components"></a>Computing the strongly connected components</h1><h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><p>A strongly connected component is a set of vertices and edges so that every pair of vertices in the set can get to each other through some edges in the set.</p>
 <p>Given directed graph G = (V, E), finding all of the strongly connected components. </p>
+<a id="more"></a>
 <h2 id="Kosaraju’s-Two-Pass-Algorithm"><a href="#Kosaraju’s-Two-Pass-Algorithm" class="headerlink" title="Kosaraju’s Two-Pass Algorithm"></a>Kosaraju’s Two-Pass Algorithm</h2><p>Gr = (V, Er), where Er is the set of edges in which every edge are the reverse version of the corresponding edge in E.</p>
 <p>leader[] is an array that leader[i] is the leader of the strongly connected components which ith vertex belongs to.</p>
 <p>The algorithm:</p>

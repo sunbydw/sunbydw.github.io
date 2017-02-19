@@ -922,52 +922,15 @@
 
       
         
-          
-            <p>相关变量： mid, lo, hi</p>
+          <p>相关变量： mid, lo, hi</p>
 <p>首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：</p>
-<ol>
-<li><p>中间值包括在左半部分</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// more efficient than (lo + hi) / 2</span></div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值包括在了某个区间内，说明该区间内可能有比中间值更加符合条件的，所以查到中间值不返回</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>中间值包括在右半部分</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;        </div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值不返回的道理同上。</span></div></pre></td></tr></table></figure>
-<p>记忆方法： 这两种形式的区别相当于偶数个数的时候取左边的中位数还是右边的中位数。中间值包括在右边，这样取右边的中位数，就两边更平衡一些</p>
-</li>
-<li><p>中间值两边都不包括</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt;= hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span> some_value;  <span class="comment">// 中间值返回</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>前两种模式结束后都是 lo == high，因此返回哪个都行；后一种结束为：lo == high + 1，但是一般都返回false了（二分查找没找到）</p>
-<p>例子：</p>
-<ol>
-<li><p>中间值包括在左半部分：</p>
-<blockquote>
-<p>Suppose a sorted array is rotated at some pivot unknown to you beforehand.</p>
-<p>(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).</p>
-<p>Find the minimum element. You may assume no duplicate exists in the array.</p>
-</blockquote>
-<p>   以[4,5,6,7,0,1,2] 为例，第一次肯定是走右边（7 &gt; 2), 7肯定不会是最小的，所以 lo 取7 下一个位置；若是[5,6,7,0,1,2,4], 第一次走左边，0是最小，肯定要包括。 所以中间值包括在左半部分</p>
-<p>​</p>
-</li>
-<li><p>中间值包括在右半部分：</p>
-<blockquote>
-<p>Given n pieces of wood with length L[i] (integer array).<br>Cut them into small pieces to guarantee you could have <strong>equal or more</strong> than k pieces with the same length. What is the <strong>longest</strong> length you can get from the n pieces of wood? Given L &amp; k, return the maximum length of the small pieces.</p>
-<p><strong>Example</strong><br>For L=[232, 124, 456], k=7, return 114.</p>
-</blockquote>
-</li>
-</ol>
-<p>​        当一个长度长了，导致k不够，这时需要减小长度（走左边），这个太长的长度本身不能作为答案；当一个长度短了，导致k大了或刚好等于，这时增加长度可能有更好的答案，也可能没有，因此我们需要把这个长度包含在下次的迭代里的。所以这种情况下中间值包括在右半部分。</p>
-<ol>
-<li><p>中间值两边都不包括</p>
-<blockquote>
-<p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
-<p>You may assume <strong>NO</strong> duplicates in the array.</p>
-</blockquote>
-<p>这道题相当于二分查找。二分查找中，无论走左边还是走右边，中间值都是不符合要求的，因此可以直接剔除。</p>
-</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/30/Notes-of-Binary-Search/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1105,24 +1068,16 @@
 
       
         
-          
-            <h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a><strong>Setup:</strong></h2><p><strong>Input:</strong> Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n</p>
+          <h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a><strong>Setup:</strong></h2><p><strong>Input:</strong> Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n</p>
 <p><strong>Goal:</strong> Compute a valid search tree that minimizes the weighted (average) search time.</p>
 <p>$$C(T) = \sum_{items} p_i * (depth(i)+1)$$</p>
-<h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis:"></a><strong>Analysis:</strong></h2><h3 id="Optimal-Substructure"><a href="#Optimal-Substructure" class="headerlink" title="Optimal Substructure"></a><strong>Optimal Substructure</strong></h3><p>Suppose an optimal BST for keys {1, 2, . . . , n} has root r , left subtree $T_1$ , right subtree $T_2$. Then $T_1$ is optimal for the keys {1, 2, . . . , r − 1} and $T_2$ for the keys {r + 1, r + 2, . . . , n} (contradiction) </p>
-<p>At this time, we have:</p>
-<p>$$C(T) = \sum_{items} p_i + C(T_1) + C(T_2)$$</p>
-<h3 id="Relevant-Subproblems"><a href="#Relevant-Subproblems" class="headerlink" title="Relevant Subproblems"></a><strong>Relevant Subproblems</strong></h3><p>Contiguous intervals (S = {i, i + 1, . . . , j − 1, j} for every i ≤ j)  Note: Since we sometimes have to calculate the suffix of a prefix(this is not neither a prefix or suffix, but an contiguous interval)</p>
-<h3 id="The-Recurrence"><a href="#The-Recurrence" class="headerlink" title="The Recurrence:"></a><strong>The Recurrence:</strong></h3><p><strong>Notation:</strong> For 1 ≤ i ≤ j ≤ n, let $C_ij$ = weighted search cost of an optimal BST for the items { i, i + 1, . . . , j−1, j } [with probabilities $[ p_i , p_{i+1} , . . . , p_j ]$</p>
-<p><strong>Recurrence:</strong> For every 1 ≤ i ≤ j ≤ n: $$C_{ij}=min_{r=1,…,j}{\sum^j_{k=i}p_k + C_{i,r-1}+C_{r+1,j}}$$</p>
-<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm:"></a>Algorithm:</h2><p><strong>Important:</strong> Solve smallest subproblems first</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Let A = <span class="number">2</span>D <span class="built_in">array</span></div><div class="line"><span class="keyword">for</span> s = <span class="number">0</span>:n<span class="number">-1</span></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>:n</div><div class="line">        A[i][i+s] = min_r(sum(p(i:i+s) + A[i][r<span class="number">-1</span>] + A[r+<span class="number">1</span>][i+s])</div><div class="line"><span class="keyword">return</span> A[<span class="number">1</span>][n]</div></pre></td></tr></table></figure>
-<p><strong>Complexity Analysis:</strong> </p>
-<p>$-\Theta(n^2)$ Subproblems</p>
-<p>$-\Theta(j-i)$ time to compute A[i][j]</p>
-<p>$-\Theta(n^3)​$ time overall</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/26/Optimal-BSTs/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1260,29 +1215,14 @@
 
       
         
-          
-            <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><p>​    <strong>Input:</strong><br>​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.<br>​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]<br>​    <strong>Feasible solutions:</strong><br>​       Alignments - i.e., insert gaps to equalize lengths of the string<br>​    <strong>Goal:</strong><br>​       Alignment with minimum possible total penalty</p>
-<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
-<li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:<br>$$case 1: x_m \&amp; y_n $$</p>
-<p>$$ case 2: x_m \&amp; gap$$</p>
-<p>$$ case 3: y_n  \&amp; gap$$<br>If case 1 holds, then induced alignment of X’ &amp; Y’ is optimal;<br>If case 2 holds, then induced alignment of X’ &amp; Y is optimal;<br>If case 3 holds, then induced alignment of X &amp; Y’ is optimal. (contradiction)</p>
-</li>
-<li><p>Relevant Subproblems<br>$(X_i , Y_j)$ where:<br> $X_i$ = 1st i letters of X<br> $Y_j$ = 1st j letters of Y<br>(Only peel off letters from the right end of the strings.)</p>
-</li>
-<li><p>Recurrence<br>$P_ij$ = penalty of optimal alignment of $X_i$ &amp; $Y_j$ .<br>For all $i = 1, . . . , m$ and $j = 1, . . . , n$:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">P_ij = min(a[xi][yi]+P[i<span class="number">-1</span>][j<span class="number">-1</span>], a_gap+P[i][j<span class="number">-1</span>], a_gap+P[i<span class="number">-1</span>][j])</div></pre></td></tr></table></figure>
-<p>​</p>
-<p>Base case:<br>$$P_{i,0} = P_{0,i} = i * \alpha_{gap}$$</p>
-</li>
-</ul>
-<h2 id="3-The-Algorithm"><a href="#3-The-Algorithm" class="headerlink" title="3. The Algorithm"></a>3. The Algorithm</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">A[][] is a <span class="number">2</span>-D <span class="built_in">array</span></div><div class="line">A[i][<span class="number">0</span>] = A[<span class="number">0</span>][i] = i * a_gap</div><div class="line"><span class="keyword">for</span> i = <span class="number">1</span>:m</div><div class="line">    <span class="keyword">for</span> j = <span class="number">1</span>:n</div><div class="line">        A[i][j] = min(A[i<span class="number">-1</span>][j<span class="number">-1</span>]+a_xiyj, A[i<span class="number">-1</span>][j]+a_gap, A[i][j<span class="number">-1</span>]+a_gap);</div></pre></td></tr></table></figure>
-<ul>
-<li>Running time: $O(mn)$</li>
-</ul>
-<h2 id="4-Reconstructing-a-Solution"><a href="#4-Reconstructing-a-Solution" class="headerlink" title="4. Reconstructing a Solution"></a>4. Reconstructing a Solution</h2><p>Trace back from A[m][n]. </p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (m &gt; <span class="number">0</span> &amp;&amp; n &gt; <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">switch</span> matching_case &#123;</div><div class="line">      <span class="keyword">case</span> <span class="number">1</span>: match x_i, y_j, i--, j--</div><div class="line">      <span class="keyword">case</span> <span class="number">2</span>: match x_i, gap, i--</div><div class="line">      <span class="keyword">case</span> <span class="number">3</span>: match gap, y_j, j--</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">while</span> (n==<span class="number">0</span>) &#123;match remaining substring X <span class="keyword">using</span> gaps of Y&#125;</div><div class="line"><span class="keyword">while</span> (m==<span class="number">0</span>) &#123;match remaining substring Y <span class="keyword">using</span> gaps of X&#125;</div></pre></td></tr></table></figure>
-
-          
+          <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><p>​    <strong>Input:</strong><br>​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.<br>​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]<br>​    <strong>Feasible solutions:</strong><br>​       Alignments - i.e., insert gaps to equalize lengths of the string<br>​    <strong>Goal:</strong><br>​       Alignment with minimum possible total penalty</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/26/Sequence-Alignment/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1420,34 +1360,18 @@
 
       
         
-          
-            <h2 id="Principles-of-Dynamic-Programming"><a href="#Principles-of-Dynamic-Programming" class="headerlink" title="Principles of Dynamic Programming:"></a>Principles of Dynamic Programming:</h2><ol>
+          <h2 id="Principles-of-Dynamic-Programming"><a href="#Principles-of-Dynamic-Programming" class="headerlink" title="Principles of Dynamic Programming:"></a>Principles of Dynamic Programming:</h2><ol>
 <li>Identify a small number of subproblems.</li>
 <li>Can quickly+correctly solve “larger” subproblems given the solutions to “smaller subproblems”.</li>
 <li>After solving all subproblems, can quickly compute the final solution.</li>
 </ol>
-<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h2><ol>
-<li>Subproblems are always some prefix or suffix of the problem.</li>
-<li>A form of memorization can not only avoid redundantly calculate the solutions of subproblems, but also help reconstruct specific answer sometimes (not just some kind of value).</li>
-<li>面试中常见的动态规划类型：<ol>
-<li>坐标型动态规划     15%            给了一个初始状态和末状态，一般要开初始状态到末状态维度的数组</li>
-<li>序列型动态规划     30%           一个序列，需要开m大小数组</li>
-<li>双序列型动态规划 30%            两个序列，需要开m*n大小的数组</li>
-<li>划分型动态规划     10%</li>
-<li>背包型动态规划     10%</li>
-<li>区间型动态规划       5%</li>
-</ol>
-</li>
-<li>解题步骤：<ol>
-<li>找state(subproblem)</li>
-<li>找function(recurrence)</li>
-<li>initialize</li>
-<li>找answer （一般是最后一个数）</li>
-</ol>
-</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/26/Principles-of-Dynamic-Programming/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1585,34 +1509,17 @@
 
       
         
-          
-            <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
+          <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
 <li>Input: a path graph G = (V, E) with nonnegative weights on vertices.</li>
 <li>Output: Subset of nonadjacent vertices – an independent set – of maximum total weight.</li>
 </ul>
-<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><h3 id="Step-1-Formulate-Recurrence"><a href="#Step-1-Formulate-Recurrence" class="headerlink" title="Step 1: Formulate Recurrence"></a>Step 1: Formulate Recurrence</h3><ul>
-<li><p>Reasoning about structure of an optimal solution (narrows down the set of candidates for the optimal solution)<br>Let $S \subset V$ be a max-weight independent set (IS). Let $v_n$ = last vertex of path</p>
-<ul>
-<li>case 1: $v_n\notin S$. Let G’ = G with $v_n$ deleted. S is not only an IS of G’, but also a max-weight IS. (contradiction)</li>
-<li>case 2: $v_n\in S$. According to the definition of IS: $v_n-1\notin S$. Let G’’ = G with $v_n-1$ deleted. Now $S-{v_n}$ is an max-weight IS of G’’. (contradiction)</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>The strategy here is to compare results derived from two cases and then use the better one to be the current max-weight IS. So current max-weight IS can be represented by previous IS:</p>
-<p>$$IS(G) = max(IS(G’), IS(G’’) + IS)$$</p>
-</li>
-</ul>
-<h3 id="Step-2-Identify-the-Subproblems"><a href="#Step-2-Identify-the-Subproblems" class="headerlink" title="Step 2: Identify the Subproblems"></a>Step 2: Identify the Subproblems</h3><ul>
-<li>IS(G’) and IS(G’’)</li>
-</ul>
-<h3 id="Step-3-Use-Recurrence-from-Step-1-to-systematically-solve-all-problems"><a href="#Step-3-Use-Recurrence-from-Step-1-to-systematically-solve-all-problems" class="headerlink" title="Step 3: Use Recurrence from Step 1 to systematically solve all problems"></a>Step 3: Use Recurrence from Step 1 to systematically solve all problems</h3><ul>
-<li>Let A[i] be the optimal solution of the vertex set end with vertex i</li>
-<li>A[] plays a role of memorization, to avoid redundantly calculate the solutions of subproblem.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">A[0] = 0, A[1] = w1</div><div class="line">for i = 2:n</div><div class="line">    A[i] = max(A[i-1], A[i-2] + wi)</div></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/26/max-weight-independent-set/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1750,8 +1657,7 @@
 
       
         
-          
-            <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
+          <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
 <li>Input: <ul>
 <li>n items. Each has attibutes:<ul>
 <li>value $v_i$(nonnegative)</li>
@@ -1766,28 +1672,13 @@
 </ul>
 </li>
 </ul>
-<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
-<li>Step 1: Formulate recurrence     (optimal solution as function of solutions to “smaller subproblems”) based on a structure of an optimal solution<ul>
-<li>Let $S$ = a max-value solution to an instance of knapsack<ul>
-<li>case 1: suppose item $n\notin S$ =&gt; $S$ must be optimal with the first $n-1$ items (If $S^*$ were better than $S$ with respect to 1st $n − 1$ items, then this equally true w.r.t. all $n$ items - contradiction)</li>
-<li>case 2: suppose item $n\in S$ =&gt; $S - {n}$ must be an optimal solution with respect to the 1st $n-1$ items and capacity $W-w_n$ (If $S^∗$ has higher value than $S − {n}$ &amp;&amp; $total Size ≤ W − w_n$ ,then $S^∗∪ {n}$ has $size ≤ W$ and value more than $S$ - contradiction)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Step 2: Identify the subproblems<ul>
-<li>All possible prefixes of items ${1, 2, . . . , i}$</li>
-<li>All possible (integral) residual capacities $x ∈ {0, 1, 2, . . . , W }$</li>
-</ul>
-</li>
-<li><p>Step 3: Use recurrence from Step 1 to systematically solve all problems. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Let A = 2-D array </div><div class="line">Initialize A[0,x] = 0 for x = 0, 1,...,W 	</div><div class="line">For i = 1, 2, . . . , n </div><div class="line">    For x = 0, 1, . . . , W		</div><div class="line">        A[i, x] := max&#123; A[i − 1, x] , A[i − 1, x − w i ] + vi &#125;</div><div class="line">Return A[n, W ]</div></pre></td></tr></table></figure>
-<p>​</p>
-<p>​</p>
-</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/24/Knapsack-Problem/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

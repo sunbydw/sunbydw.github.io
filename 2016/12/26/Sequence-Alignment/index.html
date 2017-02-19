@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Sequence-Alignment/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="1. Setup:​    Input:​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presuma">
-<meta property="og:updated_time" content="2016-12-26T22:18:58.882Z">
+<meta property="og:updated_time" content="2017-02-19T16:49:15.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sequence Alignment Problem">
 <meta name="twitter:description" content="1. Setup:​    Input:​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp;amp; b [presuma">
@@ -348,6 +348,7 @@
 
       
         <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup:"></a>1. Setup:</h2><p>​    <strong>Input:</strong><br>​       Strings $X = x_1 . . . x_m , Y = y_1 . . . y_n$  over some alphabet Σ like {A,C,G,T}.<br>​       Penalty $α_{gap}$ for inserting a gap, $α_{ab}$ for matching a &amp; b [presumably $α_{ab} = 0$ of a = b]<br>​    <strong>Feasible solutions:</strong><br>​       Alignments - i.e., insert gaps to equalize lengths of the string<br>​    <strong>Goal:</strong><br>​       Alignment with minimum possible total penalty</p>
+<a id="more"></a>
 <h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
 <li><p>Optimal Substructure<br>For a optimal alignment of X, Y, there are 3 relevant possibilities for the contents of the final position:<br>$$case 1: x_m \&amp; y_n $$</p>
 <p>$$ case 2: x_m \&amp; gap$$</p>

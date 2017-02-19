@@ -86,23 +86,20 @@
 
 <meta name="description" content="Setup:Input: Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n
 Goal: Compute a valid search tree that minimizes the weighted (average) search time.
-$$C(T) = \sum_{items} p_i * (depth(i)+1)$$
-Analysis:Op">
+$$C(T) = \sum_{items} p_i * (depth(i)+1)$$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Optimal BSTs">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/26/Optimal-BSTs/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="Setup:Input: Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n
 Goal: Compute a valid search tree that minimizes the weighted (average) search time.
-$$C(T) = \sum_{items} p_i * (depth(i)+1)$$
-Analysis:Op">
-<meta property="og:updated_time" content="2016-12-26T23:38:04.819Z">
+$$C(T) = \sum_{items} p_i * (depth(i)+1)$$">
+<meta property="og:updated_time" content="2017-02-19T16:46:49.925Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Optimal BSTs">
 <meta name="twitter:description" content="Setup:Input: Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n
 Goal: Compute a valid search tree that minimizes the weighted (average) search time.
-$$C(T) = \sum_{items} p_i * (depth(i)+1)$$
-Analysis:Op">
+$$C(T) = \sum_{items} p_i * (depth(i)+1)$$">
 
 
 
@@ -359,6 +356,7 @@ Analysis:Op">
         <h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a><strong>Setup:</strong></h2><p><strong>Input:</strong> Frequencies $p_1, p_2,…, p_n$ for items 1,2,…,n</p>
 <p><strong>Goal:</strong> Compute a valid search tree that minimizes the weighted (average) search time.</p>
 <p>$$C(T) = \sum_{items} p_i * (depth(i)+1)$$</p>
+<a id="more"></a>
 <h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis:"></a><strong>Analysis:</strong></h2><h3 id="Optimal-Substructure"><a href="#Optimal-Substructure" class="headerlink" title="Optimal Substructure"></a><strong>Optimal Substructure</strong></h3><p>Suppose an optimal BST for keys {1, 2, . . . , n} has root r , left subtree $T_1$ , right subtree $T_2$. Then $T_1$ is optimal for the keys {1, 2, . . . , r − 1} and $T_2$ for the keys {r + 1, r + 2, . . . , n} (contradiction) </p>
 <p>At this time, we have:</p>
 <p>$$C(T) = \sum_{items} p_i + C(T_1) + C(T_2)$$</p>
