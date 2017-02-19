@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://sunbydw.github.io/2017/01/27/Master-method/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="Motivation:To evaluate the the divide and conquer algorithm">
-<meta property="og:updated_time" content="2017-02-19T18:11:36.658Z">
+<meta property="og:updated_time" content="2017-02-19T18:15:01.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Master method">
 <meta name="twitter:description" content="Motivation:To evaluate the the divide and conquer algorithm">
@@ -361,7 +361,7 @@
 <p>​    [a, b, d <strong>independent of n</strong>]</p>
 </li>
 </ol>
-<h2 id="Master-Method"><a href="#Master-Method" class="headerlink" title="Master Method:"></a>Master Method:</h2><p>$$\begin{equation}T(n) = \begin{cases} O(n^d\log n) &amp;\mbox{if a = b^d} \ O(n^d) &amp;\mbox{if a &lt; b^d} \ O(n^{log_b a}) &amp;\mbox{if a &gt; b^d} \end{cases} \end{equation}$$</p>
+<h2 id="Master-Method"><a href="#Master-Method" class="headerlink" title="Master Method:"></a>Master Method:</h2><p>$$\begin{equation}T(n) = \begin{cases} O(n^d\log n) &amp;\mbox{if a = b^d} \\ O(n^d) &amp;\mbox{if a &lt; b^d} \\ O(n^{log_b a}) &amp;\mbox{if a &gt; b^d} \end{cases} \end{equation}$$</p>
 <h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h2><ol>
 <li><p>To memorize:</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Tn = (logb(a) == d) ? n^d*<span class="built_in">log</span>(n) : max(n^d, n^(logb(a)))</div></pre></td></tr></table></figure>
@@ -370,12 +370,12 @@
 <ol>
 <li><p>In level j, the number of subproblems is a^j, the size of one subproblem is n/(b^j)</p>
 </li>
-<li><p>The amount work to be done in the level j is $a^j <em> (n/b^j)^d = n^d </em> (a/b^d)^j$</p>
+<li><p>The amount work to be done in the level j is $a^j<em>(n/b^j)^d = n^d </em> (a/b^d)^j$</p>
 </li>
 <li><p>Here $n^d$ is a constant amount of work in each level, a is <strong>rate of subproblem proliferation</strong> (RSP), $b^d$ is <strong>rate of work shrinkage</strong> (RWS).</p>
 </li>
 <li><p>If RSP &lt; RWS, the amount of work decreases as level increases, so the the most amount of work are done in the root. Total work: $n^d$ </p>
-<p>If RSP = RWS, the amount of work in every level keeps the same ($n^d​$), so the total amount of work is nums of level <em> works every level. i.e. $n^d </em> log_bn​$</p>
+<p>If RSP = RWS, the amount of work in every level keeps the same ($n^d$), so the total amount of work is nums of level * works every level. i.e. $n^d\log_bn$</p>
 <p>If RSP &gt; RWS, the amount of work increases as level increases, so the most amount of work are done in the leaves of the tree. Total work: the number of the leaves. i.e. $a^{log_bn} = n^{log_ba}$</p>
 </li>
 </ol>
