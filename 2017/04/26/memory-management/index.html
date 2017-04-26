@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Dynamic Programming," />
+  <meta name="keywords" content="Memory management," />
 
 
 
@@ -84,49 +84,22 @@
 
 
 
-<meta name="description" content="Knapsack Problem1. Setup
-Input: 
-n items. Each has attibutes:
-value $v_i$(nonnegative)
-size  $w_i$(nonnegative and integral)
-
-
-and the capacity W (a nonnegative integer)
-
-
-Output:
-A subset $S \subset">
+<meta name="description" content="Memory management notesOS Abstraction
+Virtual Memory: an address space can be larger than the machine’s physical memory
+Address Independence: same numeric address can be used in different address spac">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Knapsack Problem">
-<meta property="og:url" content="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/index.html">
+<meta property="og:title" content="memory-management1">
+<meta property="og:url" content="http://sunbydw.github.io/2017/04/26/memory-management/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="Knapsack Problem1. Setup
-Input: 
-n items. Each has attibutes:
-value $v_i$(nonnegative)
-size  $w_i$(nonnegative and integral)
-
-
-and the capacity W (a nonnegative integer)
-
-
-Output:
-A subset $S \subset">
-<meta property="og:updated_time" content="2017-02-19T16:48:02.282Z">
+<meta property="og:description" content="Memory management notesOS Abstraction
+Virtual Memory: an address space can be larger than the machine’s physical memory
+Address Independence: same numeric address can be used in different address spac">
+<meta property="og:updated_time" content="2017-04-26T13:49:22.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Knapsack Problem">
-<meta name="twitter:description" content="Knapsack Problem1. Setup
-Input: 
-n items. Each has attibutes:
-value $v_i$(nonnegative)
-size  $w_i$(nonnegative and integral)
-
-
-and the capacity W (a nonnegative integer)
-
-
-Output:
-A subset $S \subset">
+<meta name="twitter:title" content="memory-management1">
+<meta name="twitter:description" content="Memory management notesOS Abstraction
+Virtual Memory: an address space can be larger than the machine’s physical memory
+Address Independence: same numeric address can be used in different address spac">
 
 
 
@@ -154,13 +127,13 @@ A subset $S \subset">
 
 
 
-  <link rel="canonical" href="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/"/>
+  <link rel="canonical" href="http://sunbydw.github.io/2017/04/26/memory-management/"/>
 
 
 
 
 
-  <title> Knapsack Problem | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> memory-management1 | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -283,7 +256,7 @@ A subset $S \subset">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2017/04/26/memory-management/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="sunbydw">
@@ -307,7 +280,7 @@ A subset $S \subset">
             
             
               
-                Knapsack Problem
+                memory-management1
               
             
           </h1>
@@ -322,8 +295,8 @@ A subset $S \subset">
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-24T21:10:29-05:00">
-                2016-12-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T09:46:58-04:00">
+                2017-04-26
               </time>
             
 
@@ -345,8 +318,8 @@ A subset $S \subset">
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithms</span>
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
                   </a>
                 </span>
 
@@ -380,40 +353,78 @@ A subset $S \subset">
       
 
       
-        <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
-<li>Input: <ul>
-<li>n items. Each has attibutes:<ul>
-<li>value $v_i$(nonnegative)</li>
-<li>size  $w_i$(nonnegative and integral)</li>
+        <h1 id="Memory-management-notes"><a href="#Memory-management-notes" class="headerlink" title="Memory management notes"></a>Memory management notes</h1><h2 id="OS-Abstraction"><a href="#OS-Abstraction" class="headerlink" title="OS Abstraction"></a>OS Abstraction</h2><ul>
+<li><strong>Virtual Memory:</strong> an address space can be larger than the machine’s physical memory</li>
+<li><strong>Address Independence:</strong> same numeric address can be used in different address spaces (i.e., different processes), yet remain logically distinct</li>
+<li><strong>Protection:</strong> one process can’t access data in another process’s address space (actually controlled sharing)</li>
+</ul>
+<h2 id="Memory-translation"><a href="#Memory-translation" class="headerlink" title="Memory translation"></a>Memory translation</h2><h3 id="Uniprogramming-One-process-a-time"><a href="#Uniprogramming-One-process-a-time" class="headerlink" title="Uniprogramming: One process a time"></a><strong>Uniprogramming</strong>: One process a time</h3><ul>
+<li>No virtual memory</li>
+<li>Address independence: yes</li>
+<li>Protection: yes</li>
+<li><strong>Pro:</strong> Simple</li>
+<li><strong>Con:</strong> Expensive context switch</li>
+</ul>
+<h3 id="Multiprogramming-Many-processes-share-physical-memory"><a href="#Multiprogramming-Many-processes-share-physical-memory" class="headerlink" title="Multiprogramming: Many processes share physical memory"></a><strong>Multiprogramming:</strong> Many processes share physical memory</h3><ul>
+<li><strong>static address translation:</strong> linker-loader adds offset-&gt;register values calculate addr(app takes last move) - expensive &amp; security issues</li>
+<li><strong>dynamic address translation:</strong> hardware(MMU) translation, invoke faults(OS takes last move)</li>
+</ul>
+<h4 id="1-Techniques"><a href="#1-Techniques" class="headerlink" title="1. Techniques"></a>1. Techniques</h4><ul>
+<li><strong>Base and bounds:</strong><br>  Use continuous chunk of memory, store/change “base” and “bound” when context switch<ul>
+<li><strong>translation:</strong> check offset -&gt; base+offset</li>
+<li><strong>context switch:</strong> change base and bound</li>
+<li><strong>pros:</strong> simple, fast</li>
+<li><strong>cons:</strong> no virtual address, no data sharing, external fragmentation</li>
 </ul>
 </li>
-<li>and the capacity W (a nonnegative integer)</li>
+<li><strong>Segmentation:</strong><br>  Use many continuous chunk of memory, each is one “segment”<ul>
+<li><strong>translation:</strong> look for segment# -&gt; check offset -&gt; base+offset</li>
+<li><strong>context switch:</strong> segment table</li>
+<li><strong>pros:</strong> data sharing, grow segment(separately)</li>
+<li><strong>cons:</strong> few virtual address(expensive), external fragmentation</li>
 </ul>
 </li>
-<li>Output:<ul>
-<li>A subset $S \subset {1, 2,…, n}$ that maximizes $\sum_{i\in S} v_i $ subject to $\sum_{i\in S} w_i \leq W$</li>
+<li><strong>Paging:</strong><br>  Use page as a fixed-sized memory unit<ul>
+<li><strong>translation:</strong> page table register -&gt; page table -&gt; page</li>
+<li><strong>context switch:</strong> change page table register</li>
+<li><strong>pros:</strong> flexible sharing, virtual memory, easy to grow address space</li>
+<li><strong>cons:</strong> large page tables</li>
+<li><strong>page size:</strong> 4K/8K(compromise) too large: internal fragmentation; too small: even larger page table</li>
 </ul>
 </li>
 </ul>
-<a id="more"></a>
-<h2 id="2-Analysis"><a href="#2-Analysis" class="headerlink" title="2. Analysis"></a>2. Analysis</h2><ul>
-<li>Step 1: Formulate recurrence     (optimal solution as function of solutions to “smaller subproblems”) based on a structure of an optimal solution<ul>
-<li>Let $S$ = a max-value solution to an instance of knapsack<ul>
-<li>case 1: suppose item $n\notin S$ =&gt; $S$ must be optimal with the first $n-1$ items (If $S^*$ were better than $S$ with respect to 1st $n − 1$ items, then this equally true w.r.t. all $n$ items - contradiction)</li>
-<li>case 2: suppose item $n\in S$ =&gt; $S - {n}$ must be an optimal solution with respect to the 1st $n-1$ items and capacity $W-w_n$ (If $S^∗$ has higher value than $S − {n}$ &amp;&amp; $total Size ≤ W − w_n$ ,then $S^∗∪ {n}$ has $size ≤ W$ and value more than $S$ - contradiction)</li>
+<h4 id="2-Efficiency"><a href="#2-Efficiency" class="headerlink" title="2. Efficiency"></a>2. Efficiency</h4><ul>
+<li><strong>Multi-level paging:</strong> Using tree structure to represent sparse virtual address space, but need multiple levels of lookups in translation</li>
+<li><strong>Cache:</strong> TLB-&gt;Cache virtual-&gt;physical mapping entries. If miss: look up in multi-level paging tree.  <strong>context switch:</strong> need to flush TLB</li>
+<li><strong>Replacement:</strong> Not all valid pages may fit in physical memory. Some pages must be paged out (written) to disk when reading in a new page from disk. <strong>GOAL:</strong> minimize page faults<ul>
+<li><strong>FIFO:</strong> simple but not optimal</li>
+<li><strong>LRU:</strong> assume past predicts the future, hard to implement. <em>approximation:</em> clock algorithm.</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>Step 2: Identify the subproblems<ul>
-<li>All possible prefixes of items ${1, 2, . . . , i}$</li>
-<li>All possible (integral) residual capacities $x ∈ {0, 1, 2, . . . , W }$</li>
+<h4 id="3-other-features"><a href="#3-other-features" class="headerlink" title="3. other features"></a>3. other features</h4><ul>
+<li><strong>page table entries:</strong> (physical page#, resident, protection(read enable, write enable), dirty, referenced, shared bits, maintained by MMU or by OS) <strong>simplest MMU:</strong> only physical page number, read enable and write enable</li>
+<li><strong>zero-on reference:</strong></li>
+<li><strong>copy on write:</strong> add reference count to each page, copying to a new page only when written</li>
+</ul>
+<h2 id="Kernel-memory"><a href="#Kernel-memory" class="headerlink" title="Kernel memory"></a>Kernel memory</h2><ul>
+<li><strong>dual mode:</strong><ul>
+<li>kernel mode: Use kernel address space (always pinned in physical memory), have top privileges</li>
+<li>user mode: Process’ address space. Limited privileges.</li>
+<li>user mode -&gt; kernel mode： system calls, faults, interrupts</li>
 </ul>
 </li>
-<li><p>Step 3: Use recurrence from Step 1 to systematically solve all problems. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Let A = 2-D array </div><div class="line">Initialize A[0,x] = 0 for x = 0, 1,...,W 	</div><div class="line">For i = 1, 2, . . . , n </div><div class="line">    For x = 0, 1, . . . , W		</div><div class="line">        A[i, x] := max&#123; A[i − 1, x] , A[i − 1, x − w i ] + vi &#125;</div><div class="line">Return A[n, W ]</div></pre></td></tr></table></figure>
-<p>​</p>
-<p>​</p>
+<li><strong>system calls:</strong><ul>
+<li>Arguments： <strong>copy</strong> from user’s address space to kernel’s address space. Also have to validate (not make kernel crash)</li>
+<li>fork(): create a copy of the parent address space. Use copy on write to defer work. Return 0 if it’s child process. Otherwise return child’s process id.</li>
+<li>exec(): put the program image to memory and execute the program. Use memory-mapped files to optimize (do not have to load all of the codes to disk immediately (on demand), and one piece of code can be shared by all process instances)</li>
+<li>waitpid(): wait for another process to finish</li>
+<li>pipe(fd[2]): For interprocess communication. fd[0] is the reader, fd[1] is the writer. pipe exists only in the creator’s address space.</li>
+<li>dup2(int oldfd, int new fd): copy a file descriptor</li>
+<li>mmap()</li>
+<li>mprotect()</li>
+<li>signal()</li>
+</ul>
 </li>
 </ul>
 
@@ -439,7 +450,7 @@ A subset $S \subset">
       
         <div class="post-tags">
           
-            <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
+            <a href="/tags/Memory-management/" rel="tag"># Memory management</a>
           
         </div>
       
@@ -448,8 +459,8 @@ A subset $S \subset">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/23/Dijkstra/" rel="next" title="Dijkstra">
-                <i class="fa fa-chevron-left"></i> Dijkstra
+              <a href="/2017/02/19/Big-Oh-Notation/" rel="next" title="Big Oh Notation">
+                <i class="fa fa-chevron-left"></i> Big Oh Notation
               </a>
             
           </div>
@@ -458,8 +469,8 @@ A subset $S \subset">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/26/max-weight-independent-set/" rel="prev" title="Max-Weight Independent Set">
-                Max-Weight Independent Set <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/26/file-system/" rel="prev" title="file-system">
+                file-system <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -583,7 +594,7 @@ A subset $S \subset">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Knapsack-Problem"><span class="nav-number">1.</span> <span class="nav-text">Knapsack Problem</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Setup"><span class="nav-number">1.1.</span> <span class="nav-text">1. Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Analysis"><span class="nav-number">1.2.</span> <span class="nav-text">2. Analysis</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Memory-management-notes"><span class="nav-number">1.</span> <span class="nav-text">Memory management notes</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OS-Abstraction"><span class="nav-number">1.1.</span> <span class="nav-text">OS Abstraction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memory-translation"><span class="nav-number">1.2.</span> <span class="nav-text">Memory translation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uniprogramming-One-process-a-time"><span class="nav-number">1.2.1.</span> <span class="nav-text">Uniprogramming: One process a time</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiprogramming-Many-processes-share-physical-memory"><span class="nav-number">1.2.2.</span> <span class="nav-text">Multiprogramming: Many processes share physical memory</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Techniques"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1. Techniques</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Efficiency"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2. Efficiency</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-other-features"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3. other features</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kernel-memory"><span class="nav-number">1.3.</span> <span class="nav-text">Kernel memory</span></a></li></ol></li></ol></div>
             
 
           </div>

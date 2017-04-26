@@ -248,6 +248,502 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2017/04/26/file-system/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/26/file-system/" itemprop="url">
+                  file-system
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T09:50:13-04:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h1><h2 id="OS-Abstraction"><a href="#OS-Abstraction" class="headerlink" title="OS Abstraction"></a>OS Abstraction</h2><h4 id="Disk-gt-File-system"><a href="#Disk-gt-File-system" class="headerlink" title="Disk -&gt; File system"></a>Disk -&gt; File system</h4><ul>
+<li>Heterogeneous -&gt; Uniform</li>
+<li>Few storage objects(disks) -&gt; Many storage objects(files)</li>
+<li>Simple naming(flat array of blocks) -&gt; Rich naming (Symbolic, Structured, Unified)</li>
+<li>Fixed block assignment -&gt; Flexible block assignment</li>
+<li>Slow -&gt; Fast</li>
+<li>Possibly inconsistent on system crash -&gt; Crash consistency</li>
+</ul>
+<h2 id="I-O-Performance"><a href="#I-O-Performance" class="headerlink" title="I/O Performance"></a>I/O Performance</h2><ul>
+<li>Increase performance:<ul>
+<li>Avoid doing I/O</li>
+<li>Reduce overhead (minimize positioning time)</li>
+<li>Amortize overhead over larger requests</li>
+</ul>
+</li>
+<li>Efficiency = transfer time / (position time + transfer time)</li>
+<li>Disk scheduling: Reduce overhead by <strong>reordering requests</strong><ul>
+<li>FIFO (FCFS): first come, first served: fair, low effiency</li>
+<li>SSTF: shortest seek time first: unfair(starvation), local optima, better response time</li>
+<li>SCAN: not completely fair, better throughput</li>
+</ul>
+</li>
+<li>Optimization:<ul>
+<li>anticipatory scheduling: wait for a bit for new request, can improve throughput and response time</li>
+<li>Optimizing data layout: keep related items together on disks</li>
+<li>Flash (solid state disks)</li>
+</ul>
+</li>
+</ul>
+<h2 id="file-system"><a href="#file-system" class="headerlink" title="file system"></a>file system</h2><ul>
+<li>Two levels of Data Structures:<ul>
+<li><strong>Locating data from a file:</strong><ul>
+<li>meta data as root (inode): meta data (owners, protection, type …)</li>
+<li>indexed file blocks: pointers contained in inode<ul>
+<li>optimizatioin: multi-level index (non-uniform), file caching</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>locating file from a file system:</strong><ul>
+<li>translate filename -&gt; block #<ul>
+<li>hash table: cannot support sub-dir search</li>
+<li><strong>tree:</strong> directories</li>
+</ul>
+</li>
+<li><strong>directory</strong>:<ul>
+<li>map a set of files(dirs) -&gt; block#</li>
+<li>array: hash table, B-tree</li>
+<li>largely equivalent to files: inode to store metadata</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>File caching:<ul>
+<li>Cache file system blocks into physical memory</li>
+<li>write-through vs. write-back<ul>
+<li>write-through: low performance, secure and Simple</li>
+<li>write-back: loses data on crashes</li>
+<li>current fs: write-back but bounded time flush the cached data to disk</li>
+</ul>
+</li>
+<li>File caching vs. Virtual memory:<ul>
+<li>Both use physical memory as a cache for disk</li>
+<li>Use a single mechanism to conduct replacement</li>
+<li>Memory-mapped files: a way to use paging system to cache both virtual address space and the file system data</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>transaction update: <strong>atomicity and durability</strong><ul>
+<li>Assume single-step updates are atomic and durable. Crashes in the middle of multi-step updates cannot break the consistency</li>
+<li>Adjust the order of steps:<ul>
+<li>Always update the blocks <strong>which are pointed to</strong> first.</li>
+<li>Careful ordering goes from one consistent state to another.</li>
+<li>Ordering is not enough in some cases.</li>
+</ul>
+</li>
+<li>Shadowing and shadow paging:<ul>
+<li>Shadowing:<ul>
+<li>Make a replica of data store. Backup version is not pointed to</li>
+<li>Update the backup version</li>
+<li>Finally move the pointer from current -&gt; backup version (moving pointer is atomic)</li>
+<li>Update the current version</li>
+</ul>
+</li>
+<li>Shadow paging (on demand shadowing):<ul>
+<li>Make replica when demand</li>
+<li><strong>Stop at common ancester</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Logging: (journaling)<ul>
+<li>Record all of the operations in Log</li>
+<li>After a trasaction, append “commit” to log</li>
+<li>Recovery after crash: redo all of the operations before the last “commit”</li>
+<li>If crash before commit: abort all of the ops after last commit (nothing)</li>
+<li>if crash after commit: redo all of the ops (all)</li>
+<li><strong>log operations should be idempotent:</strong> same effect after conducted many times</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Log-structured File System (LFS):<ul>
+<li>Goal: make random disk I/O sequential (For write, not possible for read)</li>
+<li>General idea: treat disk as an append-only log, append when write<ul>
+<li>Thus: need to append whole file-path chain from root to the log</li>
+<li><strong>Use indirection:</strong> inode map. mapping inode number -&gt; disk block. directores store the inode number so no need to update the directories, but inode map.</li>
+<li>Checkpoint stores LBN of inode map blocks. write back periodically</li>
+</ul>
+</li>
+<li>garbage collection:<ul>
+<li>append-only quickly runs out of disk space.</li>
+<li>LFS divides log into large segments<ul>
+<li>choose clean segment, write sequentially</li>
+<li>background cleaner creates new clean segments (JAVA)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>LFS rarely used for hard drives but perfect for SSDs</li>
+</ul>
+</li>
+<li>Redundant Array of Inexpensive Disks (RAID):<ul>
+<li>Increase performance and reliability</li>
+<li>Idea: Use many disks in parallel to increase storage bandwidth, improve reliability<ul>
+<li>Files are striped across disks</li>
+<li>Each stripe portion is read/written in parallel</li>
+<li>Bandwidth increases with more disks</li>
+</ul>
+</li>
+<li>RAID levels:<ul>
+<li>RAID 0: Striping (good performance but no reliability)</li>
+<li>RAID 1: Mirroring (full copy of all data, 100% overhead for storage)</li>
+<li>RAID 5: Floating parity (use one more stripe, XOR all data stripe)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2017/04/26/memory-management/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="sunbydw">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="sunbydw">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/26/memory-management/" itemprop="url">
+                  memory-management1
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T09:46:58-04:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Operating-System/" itemprop="url" rel="index">
+                    <span itemprop="name">Operating System</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Memory-management-notes"><a href="#Memory-management-notes" class="headerlink" title="Memory management notes"></a>Memory management notes</h1><h2 id="OS-Abstraction"><a href="#OS-Abstraction" class="headerlink" title="OS Abstraction"></a>OS Abstraction</h2><ul>
+<li><strong>Virtual Memory:</strong> an address space can be larger than the machine’s physical memory</li>
+<li><strong>Address Independence:</strong> same numeric address can be used in different address spaces (i.e., different processes), yet remain logically distinct</li>
+<li><strong>Protection:</strong> one process can’t access data in another process’s address space (actually controlled sharing)</li>
+</ul>
+<h2 id="Memory-translation"><a href="#Memory-translation" class="headerlink" title="Memory translation"></a>Memory translation</h2><h3 id="Uniprogramming-One-process-a-time"><a href="#Uniprogramming-One-process-a-time" class="headerlink" title="Uniprogramming: One process a time"></a><strong>Uniprogramming</strong>: One process a time</h3><ul>
+<li>No virtual memory</li>
+<li>Address independence: yes</li>
+<li>Protection: yes</li>
+<li><strong>Pro:</strong> Simple</li>
+<li><strong>Con:</strong> Expensive context switch</li>
+</ul>
+<h3 id="Multiprogramming-Many-processes-share-physical-memory"><a href="#Multiprogramming-Many-processes-share-physical-memory" class="headerlink" title="Multiprogramming: Many processes share physical memory"></a><strong>Multiprogramming:</strong> Many processes share physical memory</h3><ul>
+<li><strong>static address translation:</strong> linker-loader adds offset-&gt;register values calculate addr(app takes last move) - expensive &amp; security issues</li>
+<li><strong>dynamic address translation:</strong> hardware(MMU) translation, invoke faults(OS takes last move)</li>
+</ul>
+<h4 id="1-Techniques"><a href="#1-Techniques" class="headerlink" title="1. Techniques"></a>1. Techniques</h4><ul>
+<li><strong>Base and bounds:</strong><br>  Use continuous chunk of memory, store/change “base” and “bound” when context switch<ul>
+<li><strong>translation:</strong> check offset -&gt; base+offset</li>
+<li><strong>context switch:</strong> change base and bound</li>
+<li><strong>pros:</strong> simple, fast</li>
+<li><strong>cons:</strong> no virtual address, no data sharing, external fragmentation</li>
+</ul>
+</li>
+<li><strong>Segmentation:</strong><br>  Use many continuous chunk of memory, each is one “segment”<ul>
+<li><strong>translation:</strong> look for segment# -&gt; check offset -&gt; base+offset</li>
+<li><strong>context switch:</strong> segment table</li>
+<li><strong>pros:</strong> data sharing, grow segment(separately)</li>
+<li><strong>cons:</strong> few virtual address(expensive), external fragmentation</li>
+</ul>
+</li>
+<li><strong>Paging:</strong><br>  Use page as a fixed-sized memory unit<ul>
+<li><strong>translation:</strong> page table register -&gt; page table -&gt; page</li>
+<li><strong>context switch:</strong> change page table register</li>
+<li><strong>pros:</strong> flexible sharing, virtual memory, easy to grow address space</li>
+<li><strong>cons:</strong> large page tables</li>
+<li><strong>page size:</strong> 4K/8K(compromise) too large: internal fragmentation; too small: even larger page table</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-Efficiency"><a href="#2-Efficiency" class="headerlink" title="2. Efficiency"></a>2. Efficiency</h4><ul>
+<li><strong>Multi-level paging:</strong> Using tree structure to represent sparse virtual address space, but need multiple levels of lookups in translation</li>
+<li><strong>Cache:</strong> TLB-&gt;Cache virtual-&gt;physical mapping entries. If miss: look up in multi-level paging tree.  <strong>context switch:</strong> need to flush TLB</li>
+<li><strong>Replacement:</strong> Not all valid pages may fit in physical memory. Some pages must be paged out (written) to disk when reading in a new page from disk. <strong>GOAL:</strong> minimize page faults<ul>
+<li><strong>FIFO:</strong> simple but not optimal</li>
+<li><strong>LRU:</strong> assume past predicts the future, hard to implement. <em>approximation:</em> clock algorithm.</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-other-features"><a href="#3-other-features" class="headerlink" title="3. other features"></a>3. other features</h4><ul>
+<li><strong>page table entries:</strong> (physical page#, resident, protection(read enable, write enable), dirty, referenced, shared bits, maintained by MMU or by OS) <strong>simplest MMU:</strong> only physical page number, read enable and write enable</li>
+<li><strong>zero-on reference:</strong></li>
+<li><strong>copy on write:</strong> add reference count to each page, copying to a new page only when written</li>
+</ul>
+<h2 id="Kernel-memory"><a href="#Kernel-memory" class="headerlink" title="Kernel memory"></a>Kernel memory</h2><ul>
+<li><strong>dual mode:</strong><ul>
+<li>kernel mode: Use kernel address space (always pinned in physical memory), have top privileges</li>
+<li>user mode: Process’ address space. Limited privileges.</li>
+<li>user mode -&gt; kernel mode： system calls, faults, interrupts</li>
+</ul>
+</li>
+<li><strong>system calls:</strong><ul>
+<li>Arguments： <strong>copy</strong> from user’s address space to kernel’s address space. Also have to validate (not make kernel crash)</li>
+<li>fork(): create a copy of the parent address space. Use copy on write to defer work. Return 0 if it’s child process. Otherwise return child’s process id.</li>
+<li>exec(): put the program image to memory and execute the program. Use memory-mapped files to optimize (do not have to load all of the codes to disk immediately (on demand), and one piece of code can be shared by all process instances)</li>
+<li>waitpid(): wait for another process to finish</li>
+<li>pipe(fd[2]): For interprocess communication. fd[0] is the reader, fd[1] is the writer. pipe exists only in the creator’s address space.</li>
+<li>dup2(int oldfd, int new fd): copy a file descriptor</li>
+<li>mmap()</li>
+<li>mprotect()</li>
+<li>signal()</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2017/02/19/Big-Oh-Notation/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1404,313 +1900,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/26/max-weight-independent-set/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="sunbydw">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="sunbydw">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/26/max-weight-independent-set/" itemprop="url">
-                  Max-Weight Independent Set
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T12:46:57-05:00">
-                2016-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithms</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
-<li>Input: a path graph G = (V, E) with nonnegative weights on vertices.</li>
-<li>Output: Subset of nonadjacent vertices – an independent set – of maximum total weight.</li>
-</ul>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/26/max-weight-independent-set/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://sunbydw.github.io/2016/12/24/Knapsack-Problem/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="sunbydw">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.gif">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="sunbydw">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="sunbydw" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/24/Knapsack-Problem/" itemprop="url">
-                  Knapsack Problem
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-24T21:10:29-05:00">
-                2016-12-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithms/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithms</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Knapsack-Problem"><a href="#Knapsack-Problem" class="headerlink" title="Knapsack Problem"></a>Knapsack Problem</h1><h2 id="1-Setup"><a href="#1-Setup" class="headerlink" title="1. Setup"></a>1. Setup</h2><ul>
-<li>Input: <ul>
-<li>n items. Each has attibutes:<ul>
-<li>value $v_i$(nonnegative)</li>
-<li>size  $w_i$(nonnegative and integral)</li>
-</ul>
-</li>
-<li>and the capacity W (a nonnegative integer)</li>
-</ul>
-</li>
-<li>Output:<ul>
-<li>A subset $S \subset {1, 2,…, n}$ that maximizes $\sum_{i\in S} v_i $ subject to $\sum_{i\in S} w_i \leq W$</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/24/Knapsack-Problem/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1758,7 +1947,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1767,7 +1956,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1776,7 +1965,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
