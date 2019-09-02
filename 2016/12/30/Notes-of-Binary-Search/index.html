@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="相关变量： midd, lo, hi, nums[]
-首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
+<meta name="description" content="variables from context：12nums[]: the array which we want to perform binary search ontarget: the target number
+Template One首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Notes of Binary Search">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="相关变量： midd, lo, hi, nums[]
-首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
-<meta property="og:updated_time" content="2019-09-02T00:33:09.536Z">
+<meta property="og:description" content="variables from context：12nums[]: the array which we want to perform binary search ontarget: the target number
+Template One首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
+<meta property="og:updated_time" content="2019-09-02T01:12:51.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes of Binary Search">
-<meta name="twitter:description" content="相关变量： midd, lo, hi, nums[]
-首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
+<meta name="twitter:description" content="variables from context：12nums[]: the array which we want to perform binary search ontarget: the target number
+Template One首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
 
 
 
@@ -350,8 +350,8 @@
       
 
       
-        <p>相关变量： midd, lo, hi, nums[]</p>
-<p>首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：</p>
+        <p>variables from context：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nums[]: the array which we want to perform binary search on</div><div class="line">target: the target number</div></pre></td></tr></table></figure></p>
+<h2 id="Template-One"><a href="#Template-One" class="headerlink" title="Template One"></a>Template One</h2><p>首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：</p>
 <a id="more"></a>
 <ol>
 <li><p>当midd满足条件时，要向左半边继续搜索 (e.g. find most left target in a sorted array)</p>
@@ -393,6 +393,13 @@
 <p>这道题相当于二分查找。二分查找中，无论走左边还是走右边，中间值都是不符合要求的，因此可以直接剔除。</p>
 </li>
 </ol>
+<h2 id="Template-Two"><a href="#Template-Two" class="headerlink" title="Template Two"></a>Template Two</h2><p>Template two breaks down the problem to two steps:</p>
+<ol>
+<li>using while loop to narrow down choices from <code>nums.length</code> to 2</li>
+<li>make final decision between the remaining 2, outside the while loop</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="comment">// step 1. while loop</span></div><div class="line"><span class="comment">// This will never result in an infinite loop, because we will jump out when</span></div><div class="line"><span class="comment">// lo + 1 == hi.</span></div><div class="line"><span class="keyword">while</span> (lo + <span class="number">1</span> &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (nums[midd] &lt; target) &#123;</div><div class="line">        lo = midd;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[midd] &gt; target) &#123;</div><div class="line">        hi = midd;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// step 2. logic to choose between nums[lo] and nums[hi]</span></div><div class="line">...</div></pre></td></tr></table></figure>
+<p>This approach decouples the narrowing down logic and choosing logic, which makes it easy to reason about each part, and less error prone. However, the code might not be as clean as template one (only from the aspect of lines of code). But it might worth it to use few more lines to gain some readability, and simplicity.</p>
 
       
     </div>
@@ -484,8 +491,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -541,6 +557,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-One"><span class="nav-number">1.</span> <span class="nav-text">Template One</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Two"><span class="nav-number">2.</span> <span class="nav-text">Template Two</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
