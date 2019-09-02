@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="en">
 <head>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+  <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -84,19 +84,19 @@
 
 
 
-<meta name="description" content="相关变量： mid, lo, hi
-首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：">
+<meta name="description" content="相关变量： midd, lo, hi, nums[]
+首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Notes of Binary Search">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/index.html">
 <meta property="og:site_name" content="sunbydw">
-<meta property="og:description" content="相关变量： mid, lo, hi
-首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：">
-<meta property="og:updated_time" content="2017-08-26T10:23:52.000Z">
+<meta property="og:description" content="相关变量： midd, lo, hi, nums[]
+首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
+<meta property="og:updated_time" content="2019-09-02T00:33:09.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes of Binary Search">
-<meta name="twitter:description" content="相关变量： mid, lo, hi
-首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：">
+<meta name="twitter:description" content="相关变量： midd, lo, hi, nums[]
+首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
 
 
 
@@ -130,7 +130,7 @@
 
 
 
-  <title> Notes of Binary Search | sunbydw </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Notes of Binary Search | sunbydw </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -151,7 +151,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -350,19 +350,18 @@
       
 
       
-        <p>相关变量： mid, lo, hi</p>
-<p>首先看题目设定，看二分缩小范围后midd是包括在右半部分还是左半部分，还是都不包括，据此衍生出三种模式：</p>
+        <p>相关变量： midd, lo, hi, nums[]</p>
+<p>首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：</p>
 <a id="more"></a>
 <ol>
-<li><p>中间值包括在左半部分</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// more efficient than (lo + hi) / 2</span></div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值包括在了某个区间内，说明该区间内可能有比中间值更加符合条件的，所以查到中间值不返回</span></div></pre></td></tr></table></figure>
+<li><p>当midd满足条件时，要向左半边继续搜索 (e.g. find most left target in a sorted array)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// bias on left side: [1,2] target: 1</span></div><div class="line">    <span class="keyword">if</span> (nums[midd] &gt;= target) &#123;</div><div class="line">        hi = midd;          <span class="comment">// midd might be the ans, but still need to search left</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>中间值包括在右半部分</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;        </div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">&#125; <span class="comment">// 中间值不返回的道理同上。</span></div></pre></td></tr></table></figure>
-<p>记忆方法： 这两种形式的区别相当于偶数个数的时候取左边的中位数还是右边的中位数。中间值包括在右边，这样取右边的中位数，就两边更平衡一些</p>
+<li><p>当midd满足条件时，要向右半边继续搜索 (e.g. find most right target in a sorted array)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;   <span class="comment">// bias on right side:  [1,2] target: 2</span></div><div class="line">    <span class="keyword">if</span> (nums[midd] &gt; target) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        lo = midd;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>中间值两边都不包括</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">lo = <span class="number">0</span>, hi = size - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt;= hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_left) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (condition_to_go_right) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">        <span class="keyword">continue</span>;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span> some_value;  <span class="comment">// 中间值返回</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li><p>midd满足条件即return</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt;= hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (nums[midd] &lt; target) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[midd] &gt; target) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">/* return statement */</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>前两种模式结束后都是 lo == high，因此返回哪个都行；后一种结束为：lo == high + 1，但是一般都返回false了（二分查找没找到）</p>
@@ -695,24 +694,7 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
