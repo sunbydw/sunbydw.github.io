@@ -85,18 +85,18 @@
 
 
 <meta name="description" content="variables from context：12nums[]: the array which we want to perform binary search ontarget: the target number
-Template One首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
+Template #1The binary search problem usually has a result space (an ordered set), and requ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Notes of Binary Search">
 <meta property="og:url" content="http://sunbydw.github.io/2016/12/30/Notes-of-Binary-Search/index.html">
 <meta property="og:site_name" content="sunbydw">
 <meta property="og:description" content="variables from context：12nums[]: the array which we want to perform binary search ontarget: the target number
-Template One首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
-<meta property="og:updated_time" content="2019-09-02T01:12:51.225Z">
+Template #1The binary search problem usually has a result space (an ordered set), and requ">
+<meta property="og:updated_time" content="2019-09-07T23:15:12.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Notes of Binary Search">
 <meta name="twitter:description" content="variables from context：12nums[]: the array which we want to perform binary search ontarget: the target number
-Template One首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：">
+Template #1The binary search problem usually has a result space (an ordered set), and requ">
 
 
 
@@ -351,55 +351,31 @@ Template One首先看题目设定，看midd满足条件时要向哪边继续搜�
 
       
         <p>variables from context：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nums[]: the array which we want to perform binary search on</div><div class="line">target: the target number</div></pre></td></tr></table></figure></p>
-<h2 id="Template-One"><a href="#Template-One" class="headerlink" title="Template One"></a>Template One</h2><p>首先看题目设定，看midd满足条件时要向哪边继续搜索，据此衍生出三种模式：</p>
+<h2 id="Template-1"><a href="#Template-1" class="headerlink" title="Template #1"></a>Template #1</h2><p>The binary search problem usually has a result space (an ordered set), and requires us to return one element in the result space (infimum or supremum)</p>
 <a id="more"></a>
-<ol>
-<li><p>当midd满足条件时，要向左半边继续搜索 (e.g. find most left target in a sorted array)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// bias on left side: [1,2] target: 1</span></div><div class="line">    <span class="keyword">if</span> (nums[midd] &gt;= target) &#123;</div><div class="line">        hi = midd;          <span class="comment">// midd might be the ans, but still need to search left</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>当midd满足条件时，要向右半边继续搜索 (e.g. find most right target in a sorted array)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;   <span class="comment">// bias on right side:  [1,2] target: 2</span></div><div class="line">    <span class="keyword">if</span> (nums[midd] &gt; target) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        lo = midd;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>midd满足条件即return</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt;= hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (nums[midd] &lt; target) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[midd] &gt; target) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">/* return statement */</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>前两种模式结束后都是 lo == high，因此返回哪个都行；后一种结束为：lo == high + 1，但是一般都返回false了（二分查找没找到）</p>
-<p>例子：</p>
-<ol>
-<li><p>中间值包括在左半部分：</p>
-<blockquote>
+<h3 id="Finding-infimum"><a href="#Finding-infimum" class="headerlink" title="Finding infimum"></a>Finding infimum</h3>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;  <span class="comment">// bias on left side: [1,2] target: 1</span></div><div class="line">    <span class="keyword">if</span> (midd_is_below_infinum) &#123;</div><div class="line">        lo = midd + <span class="number">1</span>;        </div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        hi = midd;   <span class="comment">// midd might be the ans, but still need to search left</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Finding-supremum"><a href="#Finding-supremum" class="headerlink" title="Finding supremum"></a>Finding supremum</h3>   <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</div><div class="line">    midd = (lo + hi + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>;   <span class="comment">// bias on right side:  [1,2] target: 2</span></div><div class="line">    <span class="keyword">if</span> (midd_is_above_supremum) &#123;</div><div class="line">        hi = midd - <span class="number">1</span>;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        lo = midd;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>After exiting the while loop, lo==hi is a invariant.</p>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples:"></a>Examples:</h3><h4 id="Infimum"><a href="#Infimum" class="headerlink" title="Infimum:"></a>Infimum:</h4><blockquote>
 <p>Suppose a sorted array is rotated at some pivot unknown to you beforehand.</p>
 <p>(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).</p>
 <p>Find the minimum element. You may assume no duplicate exists in the array.</p>
 </blockquote>
-<p>   以[4,5,6,7,0,1,2] 为例，第一次肯定是走右边（7 &gt; 2), 7肯定不会是最小的，所以 lo 取7 下一个位置；若是[5,6,7,0,1,2,4], 第一次走左边，0是最小，肯定要包括。 所以中间值包括在左半部分</p>
-<p>​</p>
-</li>
-<li><p>中间值包括在右半部分：</p>
-<blockquote>
+<h4 id="Supremum"><a href="#Supremum" class="headerlink" title="Supremum:"></a>Supremum:</h4><blockquote>
 <p>Given n pieces of wood with length L[i] (integer array).<br>Cut them into small pieces to guarantee you could have <strong>equal or more</strong> than k pieces with the same length. What is the <strong>longest</strong> length you can get from the n pieces of wood? Given L &amp; k, return the maximum length of the small pieces.</p>
 <p><strong>Example</strong><br>For L=[232, 124, 456], k=7, return 114.</p>
 </blockquote>
-</li>
-</ol>
-<p>​        当一个长度长了，导致k不够，这时需要减小长度（走左边），这个太长的长度本身不能作为答案；当一个长度短了，导致k大了或刚好等于，这时增加长度可能有更好的答案，也可能没有，因此我们需要把这个长度包含在下次的迭代里的。所以这种情况下中间值包括在右半部分。</p>
-<ol>
-<li><p>中间值两边都不包括</p>
-<blockquote>
+<h4 id="Only-one-element-in-result-space-can-be-solved-by-finding-either-infimum-or-supremum"><a href="#Only-one-element-in-result-space-can-be-solved-by-finding-either-infimum-or-supremum" class="headerlink" title="Only one element in result space, can be solved by finding either infimum or supremum:"></a>Only one element in result space, can be solved by finding either infimum or supremum:</h4><blockquote>
 <p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
 <p>You may assume <strong>NO</strong> duplicates in the array.</p>
 </blockquote>
-<p>这道题相当于二分查找。二分查找中，无论走左边还是走右边，中间值都是不符合要求的，因此可以直接剔除。</p>
-</li>
-</ol>
-<h2 id="Template-Two"><a href="#Template-Two" class="headerlink" title="Template Two"></a>Template Two</h2><p>Template two breaks down the problem to two steps:</p>
+<h2 id="Template-2"><a href="#Template-2" class="headerlink" title="Template #2"></a>Template #2</h2><p>Template two breaks down the problem to two steps:</p>
 <ol>
 <li>using while loop to narrow down choices from <code>nums.length</code> to 2</li>
 <li>make final decision between the remaining 2, outside the while loop</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> lo = <span class="number">0</span>, hi = nums.length - <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="comment">// step 1. while loop</span></div><div class="line"><span class="comment">// This will never result in an infinite loop, because we will jump out when</span></div><div class="line"><span class="comment">// lo + 1 == hi.</span></div><div class="line"><span class="keyword">while</span> (lo + <span class="number">1</span> &lt; hi) &#123;</div><div class="line">    midd = (lo + hi) &gt;&gt; <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (nums[midd] &lt; target) &#123;</div><div class="line">        lo = midd;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[midd] &gt; target) &#123;</div><div class="line">        hi = midd;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// step 2. logic to choose between nums[lo] and nums[hi]</span></div><div class="line">...</div></pre></td></tr></table></figure>
-<p>This approach decouples the narrowing down logic and choosing logic, which makes it easy to reason about each part, and less error prone. However, the code might not be as clean as template one (only from the aspect of lines of code). But it might worth it to use few more lines to gain some readability, and simplicity.</p>
+<p>This template decouples the narrowing down logic and choosing logic, which makes it easy to reason about each part, and less error prone. However, the code might not be as clean as template one (only from the aspect of lines of code). But it might worth it to use few more lines to gain some readability, and simplicity, depending on the situation.</p>
 
       
     </div>
@@ -567,7 +543,7 @@ Template One首先看题目设定，看midd满足条件时要向哪边继续搜�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-One"><span class="nav-number">1.</span> <span class="nav-text">Template One</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-Two"><span class="nav-number">2.</span> <span class="nav-text">Template Two</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-1"><span class="nav-number">1.</span> <span class="nav-text">Template #1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Finding-infimum"><span class="nav-number">1.1.</span> <span class="nav-text">Finding infimum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Finding-supremum"><span class="nav-number">1.2.</span> <span class="nav-text">Finding supremum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Examples"><span class="nav-number">1.3.</span> <span class="nav-text">Examples:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Infimum"><span class="nav-number">1.3.1.</span> <span class="nav-text">Infimum:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Supremum"><span class="nav-number">1.3.2.</span> <span class="nav-text">Supremum:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Only-one-element-in-result-space-can-be-solved-by-finding-either-infimum-or-supremum"><span class="nav-number">1.3.3.</span> <span class="nav-text">Only one element in result space, can be solved by finding either infimum or supremum:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-2"><span class="nav-number">2.</span> <span class="nav-text">Template #2</span></a></li></ol></div>
             
 
           </div>
